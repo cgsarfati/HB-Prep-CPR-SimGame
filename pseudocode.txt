@@ -1,0 +1,34 @@
+HB Project: CPR Simulation Game
+
+Workflow MVP:
+- One player
+- Start game: print scenario that player is in (sees victim unconscious on floor)
+- Player is prompted a multiple-choice question with “correct” or “try again” output. User input is typing correct letter (all questions have 3 possible answers; user types “A”, “B”, or “C”). Program detects if user input not a character (e.g. numbers, no answer, has a space in answer, etc.)
+- If correct, it’s time for player to initiate CPR, so user is taken to “main menu” that prompts user to tackle three challenges:
+	A. Perform compressions
+	B. Open airway
+	C. Check for breathing
+- Player is instructed to pick the correct menu item (correct = A —> B —> C in order). Print “try again” if wrong answer. 
+- If correct answer, each menu item leads to multiple-choice questions with correct/“try again” answers. If correct, leads to next question. When finished with all questions from one menu item, player is looped back to “main menu”. 
+- When player looped back to main menu, has to pick the next correct answer (e.g. after finishing A, correct answer is B. After completing B, next answer is C.)
+- After successfully completing the three challenges (A —> B —> C), player gets notified that victim is resuscitated and wins game.
+- Player will always win game: if picks wrong answer, print “Try again!” and multiple-choice question is shown again. Will loop back to this until player picks correct answer.
+
+Added features:
+- Asks player name in beginning of game 
+- “Hint” choice as part of multiple-choice prompt 
+- “D. Exit Game” in main menu
+- Instead of printing “try again” if user types wrong answer, more elaborate answer (e.g. “I think it’s too early to call 911. Let’s do something else first.” As part of scenario, player has a companion inside the game (so the wrong answer rationales make sense).
+- Creates grid as chest visual instead of “compression location” multiple-choice question. Has various letters placed in grid mimicking chest location. User is prompted to type in the two correct letters corresponding to the correct hand placement during CPR.
+- “Guess the number” mini-game instead of “compression rate - how many compressions per minute should user do during CPR?” multiple-choice question. Player is prompted to input correct number. “Too high” / “Too low” if wrong until player is correct. 
+
+
+POSSIBLE FUNCTIONS IN GAME:
+- Create a function to manage user interaction during multiple-choice questions
+	* if user input is correct letter, print “Correct!” and moves to next question
+	* if user input is wrong letter, print “Try again.” and loops back to current question
+	* if user input is none of the above (e.g. types a number), print message asking user to type letter.
+	* prompt user (>>>)
+- Create a function that initiates guess-the-number game
+- Create a function that prints grid
+	*
