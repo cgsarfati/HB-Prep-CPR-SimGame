@@ -3,6 +3,13 @@ def display_introduction():
 
     print "WOP display introduction text"
 
+    #print initial scenario that user is in (finds victim on floor)
+
+    #print current condition of victim (e.g. no pulse, no breathing)
+
+    #WOP: figure out how to have lagtime b/w this function and the main menu;
+    #maybe have a raw input asking if user wants to continue?
+
 
 def get_main_menu():
     """Prints main menu and asks user to make a choice"""
@@ -15,12 +22,12 @@ def get_main_menu():
 
     user_choice = raw_input("What would you like to do? ")
 
+    #user_choice to be used in execute_repl_in_main_menu functio
     return user_choice
-    #user_choice to be used in execute_repl_in_main_menu function
 
 
-def execute_repl_in_main_menu():
-    """Executes repl loop depending on what user decides to choose in
+def execute_user_interaction_in_main_menu():
+    """Executes loop depending on what user decides to choose in
     main menu"""
 
     while True:
@@ -52,6 +59,9 @@ def execute_repl_in_main_menu():
             #exit game
             break
 
+        #WOP: the only way to break while loop is either through d option or
+        #when user completes a, b, and c with final score outputs returned
+
 
 def questions_check_airway():
     """Chronologically displays airway questions with user input. Once all
@@ -62,8 +72,7 @@ def questions_check_airway():
 
     airway_score = 0
 
-    #dictionaries within a list below. dictionaries used to organize this
-    #multiple choice quiz. default keys are 'question', 'correct_answer',
+    #dictionaries inside list below. default keys are 'question', 'correct_answer',
     #'options', and 'try_again' (will be used later as added feature).
     #values can be customized to allow for flexibilty.
 
@@ -80,17 +89,25 @@ def questions_check_airway():
             'try_again': "customizable try again message2"}
         ]
 
+    #for loop designed to iterate through each question using dictionary above
+    #with raw input from user
     for ask in airway_questions:
 
+        #prints question
         print ask['question'] + "?"
 
+        #formats question: e.g. 1) "Question"; iterates over each 'options' value
         n = 1
         for options in ask['options']:
             print "%d) %s" % (n, options)
             n = n + 1
 
+        #prompts user input
         response = raw_input("What is your answer? ")
 
+        #if correct input, outputs current score; if not, outputs try again
+        #message and moves on to next question. currently doesn't give user
+        #a second chance to answer correctly
         if response == ask['correct_answer']:
             print "Correct"
             airway_score += 1
@@ -98,6 +115,8 @@ def questions_check_airway():
         else:
             print "Sorry, the right answer is " + ask['correct_answer'] + ")"
             continue
+
+    return airway_score
 
 
 def questions_initiate_breathing():
@@ -143,6 +162,8 @@ def questions_initiate_breathing():
             print "Sorry, the right answer is " + ask['correct_answer'] + ")"
             continue
 
+    return breathing_score
+
 
 def questions_perform_compressions():
     """Chronologically displays compression questions with user input. Once all
@@ -187,13 +208,26 @@ def questions_perform_compressions():
             print "Sorry, the right answer is " + ask['correct_answer'] + ")"
             continue
 
+    return compressions_score
 
-def display_conclusion_with_score():
-    """Prints successful revival scenario of victim and display's user's total
-    score with numerical ranges that indicate how well user did in game"""
+def display_conclusion_with_final_score():
+    """Prints successful revival scenario of victim display's user's total score
+    with numerical ranges that indicate how well user did in game"""
 
+    #print that 911 has arrived and victim is revived successfully
     print "WOP conclusion text"
 
+    #print final_score through returns of functions that include airway_score +
+    #breathing_score + compressions_score
+
+    #WOP: you want return scores to be an int so you can add it together at the
+    #end
+
+    #print gives range of values e.g. (0-3: bad, 4-6: ok, 6-8: good job)
+    print "WOP final score text"
 
 display_introduction()
-execute_repl_in_main_menu()
+
+execute_user_interaction_in_main_menu()
+
+display_conclusion_with_final_score()
