@@ -25,18 +25,20 @@ def get_main_menu():
     #user_choice to be used in execute_repl_in_main_menu functio
     return user_choice
 
+    #FYI: correct order of user input from main menu = ['c', 'a', 'b']
+
 
 def execute_user_interaction_in_main_menu():
     """Executes loop depending on what user decides to choose in
     main menu"""
 
-    #list that contains correct order of user input
-    correct_road_map = ['c', 'a', 'b']
-
     #initial list corresponding to each user input. all starts false; as user
     #types in correct input, item will be reassigned to true. user completes
     #game when items all reassigned to true
     user_map = ['False', 'False', 'False']
+
+    #use in while loop as condition; reassign playing to False when user map
+    #is [T, T, T]
 
     playing = 'True'
 
@@ -72,6 +74,7 @@ def execute_user_interaction_in_main_menu():
 
         if user_map == ['True', 'True', 'True']:
             display_conclusion_with_final_score()
+            playing = 'False'
 
 
 def questions_check_airway():
