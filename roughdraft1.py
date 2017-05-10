@@ -30,37 +30,48 @@ def execute_user_interaction_in_main_menu():
     """Executes loop depending on what user decides to choose in
     main menu"""
 
-    while True:
+    #list that contains correct order of user input
+    correct_road_map = ['c', 'a', 'b']
 
-        #transfers return input from get_main_menu function to use in repl loop
+    #initial list corresponding to each user input. all starts false; as user
+    #types in correct input, item will be reassigned to true. user completes
+    #game when items all reassigned to true
+    user_map = ['False', 'False', 'False']
+
+    playing = 'True'
+
+    while playing == 'True':
+
+        #transfers return input from get_main_menu function to use in loop
         choice = get_main_menu()
 
-        if choice == "a":
-            #a. check airway
-
-            #call function to display airway questions
-            questions_check_airway()
-
-        elif choice == "b":
-            #b. initiate breathing
-
-            #call function to display breathing questions
-            questions_initiate_breathing()
-
-        elif choice == "c":
-            #c. perform compressions
-
-            #call function to display compressions questions
+        if choice == 'c':
             questions_perform_compressions()
+            user_map[0] == 'True'
+            #updated map = [T, F, F]
 
-        elif choice == "d":
+        if choice == 'a':
+            if user_map[0] == 'True':
+                questions_check_airway()
+                user_map[1] == 'True'
+                #updated map = [T, T, F]
+            else:
+                print "Try again"
+
+        if choice == 'b':
+            if user_map[1] == 'True':
+                questions_initiate_breathing()
+                user_map[2] == 'True'
+                #updated map = [T, T, T]
+
+        if choice == 'd':
             #d. exit game
 
             #exit game
             break
 
-        #WOP: the only way to break while loop is either through d option or
-        #when user completes a, b, and c with final score outputs returned
+        if user_map == ['True', 'True', 'True']:
+            display_conclusion_with_final_score()
 
 
 def questions_check_airway():
@@ -210,6 +221,7 @@ def questions_perform_compressions():
 
     return compressions_score
 
+
 def display_conclusion_with_final_score():
     """Prints successful revival scenario of victim display's user's total score
     with numerical ranges that indicate how well user did in game"""
@@ -229,5 +241,3 @@ def display_conclusion_with_final_score():
 display_introduction()
 
 execute_user_interaction_in_main_menu()
-
-display_conclusion_with_final_score()
