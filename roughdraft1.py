@@ -51,13 +51,15 @@ def execute_user_interaction_in_main_menu():
             questions_perform_compressions()
             user_map[0] = 'True'
             #updated map = [T, F, F]
+            continue
 
         if choice == 'a':
             if user_map[0] == 'True':
                 questions_check_airway()
                 user_map[1] = 'True'
                 #updated map = [T, T, F]
-            else:
+                continue
+            if user_map[0] == 'False':
                 print "do c first"
 
         if choice == 'b':
@@ -65,7 +67,7 @@ def execute_user_interaction_in_main_menu():
                 questions_initiate_breathing()
                 user_map[2] = 'True'
                 #updated map = [T, T, T]
-            else:
+            if user_map[0] == 'False':
                 print "do c first"
 
         if choice == 'd':
