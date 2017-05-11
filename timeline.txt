@@ -1,15 +1,11 @@
-May 10: solve road map - DONE
+May 10: solve road map (break out of while loop after 3 challenges completed, error message if pick already-completed choice) - DONE
 
-May 11: solve combining 3 functions - WIP
+May 11: solve combining 3 question functions into one + score system - WIP
 
 May 12: put CPR info
 
-May 13: clean up format
+May 13: clean up format + responses for all wrong user input types
 
-May 14: added features
+May 14: added features (grid game, guess-the-number game)
 
 May 15: double check everything + presentation prep
-
-May 16: presentation prep 
-
-May 17: PRESENTATION day
