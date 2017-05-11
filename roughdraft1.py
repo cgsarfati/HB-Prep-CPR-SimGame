@@ -48,27 +48,34 @@ def execute_user_interaction_in_main_menu():
         choice = get_main_menu()
 
         if choice == 'c':
-            questions_perform_compressions()
-            user_map[0] = 'True'
-            #updated map = [T, F, F]
-            continue
+            if user_map[0] == 'False':
+                questions_perform_compressions()
+                user_map[0] = 'True'
+                #updated map = [T, F, F]
+            if user_map[0] == 'True' and user_map[1] == 'False':
+                print "already did c, do a now and b later"
+            if user_map[1] == 'True' and user_map[2] == 'False':
+                print "already did c and a, do b now"
 
         if choice == 'a':
-            if user_map[0] == 'True':
+            if user_map[0] == 'True' and user_map[1] == 'False':
                 questions_check_airway()
                 user_map[1] = 'True'
                 #updated map = [T, T, F]
-                continue
             if user_map[0] == 'False':
                 print "do c first"
+            if user_map[1] == 'True' and user_map[2] == 'False':
+                print "already did a and c, do b now"
 
         if choice == 'b':
-            if user_map[1] == 'True':
+            if user_map[0] == 'False':
+                print "do c first"
+            if user_map[1] == 'True' and user_map[2] == 'False':
                 questions_initiate_breathing()
                 user_map[2] = 'True'
                 #updated map = [T, T, T]
-            if user_map[0] == 'False':
-                print "do c first"
+            if user_map[0] == 'True' and user_map[1] == 'False':
+                print "already did c, do a now and b later"
 
         if choice == 'd':
             #d. exit game
