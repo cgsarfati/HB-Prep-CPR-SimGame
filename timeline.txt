@@ -1,6 +1,6 @@
-May 10: solve road map
+May 10: solve road map - DONE
 
-May 11: solve combining 3 functions
+May 11: solve combining 3 functions - WIP
 
 May 12: put CPR info
 
