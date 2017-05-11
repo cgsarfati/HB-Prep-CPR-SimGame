@@ -49,22 +49,24 @@ def execute_user_interaction_in_main_menu():
 
         if choice == 'c':
             questions_perform_compressions()
-            user_map[0] == 'True'
+            user_map[0] = 'True'
             #updated map = [T, F, F]
 
         if choice == 'a':
             if user_map[0] == 'True':
                 questions_check_airway()
-                user_map[1] == 'True'
+                user_map[1] = 'True'
                 #updated map = [T, T, F]
             else:
-                print "Try again"
+                print "do c first"
 
         if choice == 'b':
             if user_map[1] == 'True':
                 questions_initiate_breathing()
-                user_map[2] == 'True'
+                user_map[2] = 'True'
                 #updated map = [T, T, T]
+            else:
+                print "do c first"
 
         if choice == 'd':
             #d. exit game
