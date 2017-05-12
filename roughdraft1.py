@@ -35,6 +35,7 @@ def execute_user_interaction_in_main_menu():
     user_map = ['False', 'False', 'False']
 
     #use road map below to follow logic behind nested conditionals.
+    # [C, A, B] -- correct user inputs in order
     # [F, F, F] -- 1st time menu shows. "Do C" as error message if input not C.
     # [T, F, F] -- 2nd time menu shows. c now complete. "Do A" if input not A.
     # [T, T, F] -- 3rd time menu shows. a now complete. "Do B" if input not B.
@@ -49,6 +50,7 @@ def execute_user_interaction_in_main_menu():
         choice = get_main_menu()
 
         if choice == 'c':
+        #c. perform compressions
             if user_map[0] == 'False':
                 questions_perform_compressions()
                 user_map[0] = 'True'
@@ -59,6 +61,7 @@ def execute_user_interaction_in_main_menu():
                 print "already did c and a, do b now"
 
         if choice == 'a':
+        #a. check airway
             if user_map[0] == 'True' and user_map[1] == 'False':
                 questions_check_airway()
                 user_map[1] = 'True'
@@ -69,17 +72,18 @@ def execute_user_interaction_in_main_menu():
                 print "already did a and c, do b now"
 
         if choice == 'b':
-            if user_map[0] == 'False':
-                print "do c first"
+        #b. initiate breathing
             if user_map[1] == 'True' and user_map[2] == 'False':
                 questions_initiate_breathing()
                 user_map[2] = 'True'
                 #updated map = [T, T, T]
+            if user_map[0] == 'False':
+                print "do c first"
             if user_map[0] == 'True' and user_map[1] == 'False':
                 print "already did c, do a now and b later"
 
         if choice == 'd':
-            #d. exit game
+        #d. exit game
 
             #exit game
             break
