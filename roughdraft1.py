@@ -55,9 +55,9 @@ def execute_user_interaction_in_main_menu():
                 questions_perform_compressions()
                 user_map[0] = 'True'
                 #updated map = [T, F, F]
-            if user_map[0] == 'True' and user_map[1] == 'False':
+            elif user_map[0] == 'True' and user_map[1] == 'False':
                 print "already did c, do a now and b later"
-            if user_map[1] == 'True' and user_map[2] == 'False':
+            elif user_map[1] == 'True' and user_map[2] == 'False':
                 print "already did c and a, do b now"
 
         if choice == 'a':
@@ -66,9 +66,9 @@ def execute_user_interaction_in_main_menu():
                 questions_check_airway()
                 user_map[1] = 'True'
                 #updated map = [T, T, F]
-            if user_map[0] == 'False':
+            elif user_map[0] == 'False':
                 print "do c first"
-            if user_map[1] == 'True' and user_map[2] == 'False':
+            elif user_map[1] == 'True' and user_map[2] == 'False':
                 print "already did a and c, do b now"
 
         if choice == 'b':
@@ -77,10 +77,10 @@ def execute_user_interaction_in_main_menu():
                 questions_initiate_breathing()
                 user_map[2] = 'True'
                 #updated map = [T, T, T]
-            if user_map[0] == 'False':
+            elif user_map[0] == 'False':
                 print "do c first"
-            if user_map[0] == 'True' and user_map[1] == 'False':
-                print "already did c, do a now and b later"
+            elif user_map[0] == 'True' and user_map[1] == 'False':
+                print "already did c#, do a now and b later"
 
         if choice == 'd':
         #d. exit game
@@ -99,13 +99,11 @@ def questions_check_airway():
 
     #score starts at 0, will either +1 or stay at current score depending if
     #user inputs correct/wrong answer
-
     airway_score = 0
 
     #dictionaries inside list below. default keys are 'question', 'correct_answer',
     #'options', and 'try_again' (will be used later as added feature).
     #values can be customized to allow for flexibilty.
-
     airway_questions = [
         {
             'question': 'is person breathing question 1',
@@ -254,7 +252,7 @@ def display_conclusion_with_final_score():
     #WOP: you want return scores to be an int so you can add it together at the
     #end
 
-    #print gives range of values e.g. (0-3: bad, 4-6: ok, 6-8: good job)
+    #print meaning of score e.g. 0-3: bad, 4-6: ok, 6-8: good job
     print "WOP final score text"
 
 display_introduction()
