@@ -25,21 +25,22 @@ def get_main_menu():
     #user_choice to be used in execute_repl_in_main_menu functio
     return user_choice
 
-    #FYI: correct order of user input from main menu = ['c', 'a', 'b']
-
 
 def execute_user_interaction_in_main_menu():
-    """Executes loop depending on what user decides to choose in
-    main menu"""
+    """Executes loop acccording to user input from main menu function"""
 
-    #initial list corresponding to each user input. all starts false; as user
-    #types in correct input, item will be reassigned to true. user completes
-    #game when items all reassigned to true
+    #initial list for user input to serve as road map to handle already-picked
+    #choices. starts all false. after user types correct input, item reassigned
+    #to true. user completes game when all items reassigned to true
     user_map = ['False', 'False', 'False']
 
-    #use in while loop as condition; reassign playing to False when user map
-    #is [T, T, T]
+    #use road map below to follow logic behind nested conditionals.
+    # [F, F, F] -- 1st time menu shows. "Do C" as error message if input not C.
+    # [T, F, F] -- 2nd time menu shows. c now complete. "Do A" if input not A.
+    # [T, T, F] -- 3rd time menu shows. a now complete. "Do B" if input not B.
+    # [T, T, T] -- menu will not show. b now complete. function done.
 
+    #use in while loop as condition; reassign to False when user map [T, T, T]
     playing = 'True'
 
     while playing == 'True':
