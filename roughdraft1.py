@@ -34,7 +34,7 @@ def execute_user_interaction_in_main_menu():
     #to true. user completes game when all items reassigned to true
     user_map = ['False', 'False', 'False']
 
-    #use road map below to follow logic behind nested conditionals.
+    #use road map below to follow logic behind nested conditionals
     # [C, A, B] -- correct user inputs in order
     # [F, F, F] -- 1st time menu shows. "Do C" as error message if input not C.
     # [T, F, F] -- 2nd time menu shows. c now complete. "Do A" if input not A.
@@ -103,7 +103,7 @@ def questions_check_airway():
 
     #dictionaries inside list below. default keys are 'question', 'correct_answer',
     #'options', and 'try_again' (will be used later as added feature).
-    #values can be customized to allow for flexibilty.
+    #values can be customized to allow for flexib0ilty.
     airway_questions = [
         {
             'question': 'is person breathing question 1',
