@@ -52,7 +52,7 @@ def execute_user_interaction_in_main_menu():
         if choice == 'c':
         #c. perform compressions
             if user_map[0] == 'False':
-                questions_perform_compressions()
+                current_score = questions_perform_compressions()
                 user_map[0] = 'True'
                 #updated map = [T, F, F]
             elif user_map[0] == 'True' and user_map[1] == 'False':
@@ -63,7 +63,7 @@ def execute_user_interaction_in_main_menu():
         if choice == 'a':
         #a. check airway
             if user_map[0] == 'True' and user_map[1] == 'False':
-                questions_check_airway()
+                current_score += questions_check_airway()
                 user_map[1] = 'True'
                 #updated map = [T, T, F]
             elif user_map[0] == 'False':
@@ -74,7 +74,7 @@ def execute_user_interaction_in_main_menu():
         if choice == 'b':
         #b. initiate breathing
             if user_map[1] == 'True' and user_map[2] == 'False':
-                questions_initiate_breathing()
+                current_score += questions_initiate_breathing()
                 user_map[2] = 'True'
                 #updated map = [T, T, T]
             elif user_map[0] == 'False':
@@ -89,8 +89,10 @@ def execute_user_interaction_in_main_menu():
             break
 
         if user_map == ['True', 'True', 'True']:
-            display_conclusion_with_final_score()
+            display_conclusion()
             playing = 'False'
+
+    return current_score
 
 
 def questions_check_airway():
@@ -239,22 +241,26 @@ def questions_perform_compressions():
     return compressions_score
 
 
-def display_conclusion_with_final_score():
-    """Prints successful revival scenario of victim display's user's total score
-    with numerical ranges that indicate how well user did in game"""
+def display_conclusion():
+    """Prints successful revival scenario of victim"""
 
     #print that 911 has arrived and victim is revived successfully
     print "WOP conclusion text"
 
+
+def tracking_score():
+    """display user's total score with numerical ranges that indicate how
+    well user did in game"""
+
     #print final_score through returns of functions that include airway_score +
     #breathing_score + compressions_score
 
-    #WOP: you want return scores to be an int so you can add it together at the
-    #end
+    #print meaning of score e.g. 0-2: bad, 3-5: ok, 6-8: good job
 
-    #print meaning of score e.g. 0-3: bad, 4-6: ok, 6-8: good job
-    print "WOP final score text"
+    final_score = execute_user_interaction_in_main_menu()
+
+    print "Your final score is " + str(final_score) + " out of 8"
 
 display_introduction()
 
-execute_user_interaction_in_main_menu()
+tracking_score()
