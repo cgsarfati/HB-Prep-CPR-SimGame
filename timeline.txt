@@ -1,4 +1,6 @@
-May 15: solve combining 3 question functions into one + score system - WIP
+May 14: create score system - DONE
+
+May 15: solve combining 3 question functions into one - WIP
 
 May 16: put CPR info
 

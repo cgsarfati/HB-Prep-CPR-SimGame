@@ -85,6 +85,7 @@ def execute_user_interaction_in_main_menu():
             display_conclusion()
             playing = 'False'
 
+    #return cumulative score from 3 challenges back to tracking score function
     return current_score
 
 
@@ -245,16 +246,11 @@ def tracking_score():
     """display user's total score with numerical ranges that indicate how
     well user did in game"""
 
-    #print final_score through returns of functions that include airway_score +
-    #breathing_score + compressions_score
-
-    #print meaning of score e.g. 0-2: bad, 3-5: ok, 6-8: good job
-
     final_score = execute_user_interaction_in_main_menu()
 
     if final_score <= 2:
         print "0-2 range"
-    elif final_score <= 5 and final_score > 2:
+    elif final_score > 2 and final_score <= 5:
         print "3-5 range"
     elif final_score > 6:
         print "6-8 range"
