@@ -17,8 +17,7 @@ def get_main_menu():
     print '\n   Main menu that asks user to click options below'
     print '     a. Check airway'
     print '     b. Initiate breathing'
-    print '     c. Perform compressions'
-    print '     d. Exit game \n'
+    print '     c. Perform compressions \n'
 
     user_choice = raw_input("What would you like to do? ")
 
@@ -81,12 +80,6 @@ def execute_user_interaction_in_main_menu():
                 print "do c first"
             elif user_map[0] == 'True' and user_map[1] == 'False':
                 print "already did c#, do a now and b later"
-
-        if choice == 'd':
-        #d. exit game
-
-            #exit game
-            break
 
         if user_map == ['True', 'True', 'True']:
             display_conclusion()
@@ -259,7 +252,13 @@ def tracking_score():
 
     final_score = execute_user_interaction_in_main_menu()
 
-    print "Your final score is " + str(final_score) + " out of 8"
+    if final_score <= 2:
+        print "0-2 range"
+    elif final_score <= 5 and final_score > 2:
+        print "3-5 range"
+    elif final_score > 6:
+        print "6-8 range"
+
 
 display_introduction()
 
