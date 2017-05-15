@@ -122,8 +122,8 @@ def questions_check_airway():
 
         #formats question: e.g. 1) "Question"; iterates over each 'options' value
         n = 1
-        for options in ask['options']:
-            print "%d) %s" % (n, options)
+        for option in ask['options']:
+            print "%d) %s" % (n, option)
             n = n + 1
 
         #prompts user input
@@ -138,7 +138,6 @@ def questions_check_airway():
             print "Your current score is " + str(airway_score) + " out of 2"
         else:
             print "Sorry, the right answer is " + ask['correct_answer'] + ")"
-            continue
 
     return airway_score
 
@@ -172,8 +171,8 @@ def questions_initiate_breathing():
         print ask['question'] + "?"
 
         n = 1
-        for options in ask['options']:
-            print "%d) %s" % (n, options)
+        for option in ask['options']:
+            print "%d) %s" % (n, option)
             n = n + 1
 
         response = raw_input("What is your answer? ")
@@ -184,7 +183,6 @@ def questions_initiate_breathing():
             print "Your current score is " + str(breathing_score) + " out of 3"
         else:
             print "Sorry, the right answer is " + ask['correct_answer'] + ")"
-            continue
 
     return breathing_score
 
@@ -218,8 +216,8 @@ def questions_perform_compressions():
         print ask['question'] + "?"
 
         n = 1
-        for options in ask['options']:
-            print "%d) %s" % (n, options)
+        for option in ask['options']:
+            print "%d) %s" % (n, option)
             n = n + 1
 
         response = raw_input("What is your answer? ")
@@ -230,7 +228,6 @@ def questions_perform_compressions():
             print "Your current score is " + str(compressions_score) + " out of 3"
         else:
             print "Sorry, the right answer is " + ask['correct_answer'] + ")"
-            continue
 
     return compressions_score
 
@@ -243,17 +240,17 @@ def display_conclusion():
 
 
 def tracking_score():
-    """display user's total score with numerical ranges that indicate how
+    """Display user's total score with numerical ranges that indicate how
     well user did in game"""
 
     final_score = execute_user_interaction_in_main_menu()
 
     if final_score <= 2:
-        print "0-2 range"
+        print "0-2 range scenario"
     elif final_score > 2 and final_score <= 5:
-        print "3-5 range"
+        print "3-5 range scenario"
     elif final_score > 6:
-        print "6-8 range"
+        print "6-8 range scenario"
 
 
 display_introduction()
