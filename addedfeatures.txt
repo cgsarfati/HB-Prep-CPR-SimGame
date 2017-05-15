@@ -1,9 +1,0 @@
-HB Project: CPR Simulation Game
-
-Added features:
-- Asks player name in beginning of game 
-- “Hint” choice as part of multiple-choice prompt 
-- Instead of printing “try again” if user types wrong answer, more elaborate answer (e.g. “I think it’s too early to call 911. Let’s do something else first.” As part of scenario, player has a companion inside the game (so the wrong answer rationales make sense).
-- Creates grid as chest visual instead of “compression location” multiple-choice question. Has various letters placed in grid mimicking chest location. User is prompted to type in the two correct letters corresponding to the correct hand placement during CPR.
-- “Guess the number” mini-game instead of “compression rate - how many compressions per minute should user do during CPR?” multiple-choice question. Player is prompted to input correct number. “Too high” / “Too low” if wrong until player is correct. 
-- B/w intro and main menu, have a function called “NPC” where user can interact w/ companion (to ask review questions) prior to starting game. 
