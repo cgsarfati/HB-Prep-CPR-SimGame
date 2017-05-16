@@ -17,7 +17,8 @@ def get_main_menu():
     print '\n   Main menu that asks user to click options below'
     print '     a. Check airway'
     print '     b. Initiate breathing'
-    print '     c. Perform compressions \n'
+    print '     c. Perform compressions'
+    print '     d. Exit game \n'
 
     user_choice = raw_input("What would you like to do? ")
 
@@ -51,7 +52,7 @@ def execute_user_interaction_in_main_menu():
         if choice == 'c':
         #c. perform compressions
             if user_map[0] == 'False':
-                current_score = questions_perform_compressions()
+                current_score = perform_compressions_questions()
                 user_map[0] = 'True'
                 #updated map = [T, F, F]
             elif user_map[0] == 'True' and user_map[1] == 'False':
@@ -62,7 +63,7 @@ def execute_user_interaction_in_main_menu():
         if choice == 'a':
         #a. check airway
             if user_map[0] == 'True' and user_map[1] == 'False':
-                current_score += questions_check_airway()
+                current_score += check_airway_questions()
                 user_map[1] = 'True'
                 #updated map = [T, T, F]
             elif user_map[0] == 'False':
@@ -73,7 +74,7 @@ def execute_user_interaction_in_main_menu():
         if choice == 'b':
         #b. initiate breathing
             if user_map[1] == 'True' and user_map[2] == 'False':
-                current_score += questions_initiate_breathing()
+                current_score += initiate_breathing_questions()
                 user_map[2] = 'True'
                 #updated map = [T, T, T]
             elif user_map[0] == 'False':
@@ -81,41 +82,27 @@ def execute_user_interaction_in_main_menu():
             elif user_map[0] == 'True' and user_map[1] == 'False':
                 print "already did c#, do a now and b later"
 
+        if choice == 'd':
+            exit()
+
         if user_map == ['True', 'True', 'True']:
-            display_conclusion()
+            display_revival_scenario()
             playing = 'False'
 
     #return cumulative score from 3 challenges back to tracking score function
     return current_score
 
 
-def questions_check_airway():
-    """Chronologically displays airway questions with user input. Once all
-    questions are completed, user will be brought back to main menu"""
+def ask_question(questionlist):
 
     #score starts at 0, will either +1 or stay at current score depending if
     #user inputs correct/wrong answer
-    airway_score = 0
+    score = 0
 
     #dictionaries inside list below. default keys are 'question', 'correct_answer',
     #'options', and 'try_again' (will be used later as added feature).
     #values can be customized to allow for flexib0ilty.
-    airway_questions = [
-        {
-            'question': 'is person breathing question 1',
-            'correct_answer': str(4),
-            'options': ['answer1', 'answer2', 'answer3', 'rightanswer4'],
-            'try_again': "customizable try again message"},
-        {
-            'question': 'pulse question 2',
-            'correct_answer': str(2),
-            'options': ['answer1', 'rightanswer2', 'answer3', 'answer4'],
-            'try_again': "customizable try again message2"}
-        ]
-
-    #for loop designed to iterate through each question using dictionary above
-    #with raw input from user
-    for ask in airway_questions:
+    for ask in questionlist:
 
         #prints question
         print ask['question'] + "?"
@@ -134,19 +121,38 @@ def questions_check_airway():
         #a second chance to answer correctly
         if response == ask['correct_answer']:
             print "Correct"
-            airway_score += 1
-            print "Your current score is " + str(airway_score) + " out of 2"
+            score += 1
+            print "Your current score is " + str(score) + " out of " + str(len(questionlist))
         else:
             print "Sorry, the right answer is " + ask['correct_answer'] + ")"
 
+    return score
+
+
+def check_airway_questions():
+    """Chronologically displays airway questions with user input. Once all
+    questions are completed, user will be brought back to main menu"""
+
+    airway_questions = [
+        {
+            'question': 'is person breathing question 1',
+            'correct_answer': str(4),
+            'options': ['answer1', 'answer2', 'answer3', 'rightanswer4'],
+            'try_again': "customizable try again message"},
+        {
+            'question': 'pulse question 2',
+            'correct_answer': str(2),
+            'options': ['answer1', 'rightanswer2', 'answer3', 'answer4'],
+            'try_again': "customizable try again message2"}
+        ]
+
+    airway_score = ask_question(airway_questions)
     return airway_score
 
 
-def questions_initiate_breathing():
+def initiate_breathing_questions():
     """Chronologically displays breathing questions with user input. Once all
     questions are completed, user will be brought back to main menu"""
-
-    breathing_score = 0
 
     breathing_questions = [
         {
@@ -166,32 +172,13 @@ def questions_initiate_breathing():
             'try_again': "customizable try again message2"}
         ]
 
-    for ask in breathing_questions:
-
-        print ask['question'] + "?"
-
-        n = 1
-        for option in ask['options']:
-            print "%d) %s" % (n, option)
-            n = n + 1
-
-        response = raw_input("What is your answer? ")
-
-        if response == ask['correct_answer']:
-            print "CORRECT"
-            breathing_score += 1
-            print "Your current score is " + str(breathing_score) + " out of 3"
-        else:
-            print "Sorry, the right answer is " + ask['correct_answer'] + ")"
-
+    breathing_score = ask_question(breathing_questions)
     return breathing_score
 
 
-def questions_perform_compressions():
+def perform_compressions_questions():
     """Chronologically displays compression questions with user input. Once all
     questions are completed, user will be brought back to main menu"""
-
-    compressions_score = 0
 
     compressions_questions = [
         {
@@ -211,29 +198,12 @@ def questions_perform_compressions():
             'try_again': "customizable try again message2"}
         ]
 
-    for ask in compressions_questions:
-
-        print ask['question'] + "?"
-
-        n = 1
-        for option in ask['options']:
-            print "%d) %s" % (n, option)
-            n = n + 1
-
-        response = raw_input("What is your answer? ")
-
-        if response == ask['correct_answer']:
-            print "CORRECT"
-            compressions_score += 1
-            print "Your current score is " + str(compressions_score) + " out of 3"
-        else:
-            print "Sorry, the right answer is " + ask['correct_answer'] + ")"
-
+    compressions_score = ask_question(compressions_questions)
     return compressions_score
 
 
-def display_conclusion():
-    """Prints successful revival scenario of victim"""
+def display_revival_scenario():
+    """Prints inevitable successful revival scenario of victim"""
 
     #print that 911 has arrived and victim is revived successfully
     print "WOP conclusion text"
@@ -246,11 +216,11 @@ def tracking_score():
     final_score = execute_user_interaction_in_main_menu()
 
     if final_score <= 2:
-        print "0-2 range scenario"
+        print "0-2 range scenario; bad"
     elif final_score > 2 and final_score <= 5:
-        print "3-5 range scenario"
+        print "3-5 range scenario; okay"
     elif final_score > 6:
-        print "6-8 range scenario"
+        print "6-8 range scenario; good"
 
 
 display_introduction()
