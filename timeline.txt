@@ -1,8 +1,8 @@
 May 14: create score system - DONE
 
-May 15: solve combining 3 question functions into one - WIP
+May 15: solve combining 3 question functions into one - DONE
 
-May 16: put CPR info
+May 16: put CPR info - WIP
 
 May 17: clean up format + responses for all wrong user input types
 
