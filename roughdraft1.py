@@ -11,7 +11,21 @@ def display_introduction():
     #maybe have a raw input asking if user wants to continue?
 
 
-def get_main_menu():
+def start_simulation():
+
+    print "simulation"
+
+
+def get_navigation_instructions():
+
+    print 'Navigation controls:'
+    print '\n   * '
+    print
+    print
+    print
+
+
+def get_CPR_main_menu():
     """Prints main menu and asks user to make a choice"""
 
     print '\n   Main menu that asks user to click options below'
@@ -26,7 +40,7 @@ def get_main_menu():
     return user_choice
 
 
-def execute_user_interaction_in_main_menu():
+def execute_user_interaction_CPR_main_menu():
     """Executes loop acccording to user input from main menu function"""
 
     #initial list for user input to serve as road map to handle already-picked
@@ -47,7 +61,7 @@ def execute_user_interaction_in_main_menu():
     while playing == 'True':
 
         #transfers return input from get_main_menu function to use in loop
-        choice = get_main_menu()
+        choice = get_CPR_main_menu()
 
         if choice == 'c':
         #c. perform compressions
@@ -126,6 +140,7 @@ def ask_question(questionlist):
         else:
             print "Sorry, the right answer is " + ask['correct_answer'] + ")"
 
+    #returns back to current_score variable in main menu function
     return score
 
 
@@ -213,7 +228,7 @@ def tracking_score():
     """Display user's total score with numerical ranges that indicate how
     well user did in game"""
 
-    final_score = execute_user_interaction_in_main_menu()
+    final_score = execute_user_interaction_CPR_main_menu()
 
     if final_score <= 2:
         print "0-2 range scenario; bad"
@@ -223,6 +238,37 @@ def tracking_score():
         print "6-8 range scenario; good"
 
 
+def get_main_menu():
+    """Prints introductory main menu and asks user to make a choice"""
+
+    print '\nWelcome to the CPR Simulation game!\n'
+    print '     1 - Start game'
+    print '     2 - CPR review'
+    print '     3 - Navigation instructions'
+    print '     4 - Exit game \n'
+
+    choice = int(raw_input('Choose from the menu options: '))
+    return choice
+
+
+def execute_repl_main_menu():
+
+    while True:
+
+        user_choice = get_main_menu()
+
+        if user_choice == 1:
+            start_simulation()
+
+        elif user_choice == 2:
+            tracking_score()
+
+        elif user_choice == 3:
+            get_navigation_instructions()
+
+        elif user_choice == 4:
+            break
+
 display_introduction()
 
-tracking_score()
+execute_repl_main_menu()
