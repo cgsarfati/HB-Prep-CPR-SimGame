@@ -1,19 +1,15 @@
-def display_introduction():
-    """Prints introductory scenario that user is in"""
+def start_simulation():
 
     print "\nWelcome to the CPR Simulation game!"
     user_name = raw_input("\nWhat is your name? ")
-    print "\nHi " + user_name + ". Let's get started!"
-
-    #WOP: figure out how to have lagtime b/w this function and the main menu;
-    #maybe have a raw input asking if user wants to continue?
-
-
-def start_simulation():
-
-    print "simulation"
-
-    #print initial scenario that user is in (finds victim on floor)
+    print "\nHi " + user_name + ". It's very nice to meet y--"
+    print "\n*someone screams in the distance*"
+    print "\nstranger: HELP! HELP! HELP!"
+    print "\n*a stranger runs towards you*"
+    print "\nstranger: Hey!! Hurry come with me, I found someone unconscious!!!"
+    print "\n*you follow the stranger*"
+    print "\n*you see an individual laying face down on the floor, unresponsive*"
+    print "\nstranger: I'm going to call 911 right now"
 
     #print current condition of victim (e.g. no pulse, no breathing)
 
@@ -234,7 +230,8 @@ def tracking_score():
 def get_main_menu():
     """Prints introductory main menu and asks user to make a choice"""
 
-    print '\n   Main menu\n'
+    print "\nWelcome to the CPR Simulation game!\n"
+
     print '     a. Start game'
     print '     b. CPR tutorial'
     print '     c. Exit game \n'
@@ -245,12 +242,15 @@ def get_main_menu():
 
 def execute_repl_main_menu():
 
-    while True:
+    playing = 'True'
+
+    while playing == 'True':
 
         user_choice = get_main_menu()
 
         if user_choice == 'a':
             start_simulation()
+            playing = 'False'
 
         elif user_choice == 'b':
             tracking_score()
@@ -258,6 +258,5 @@ def execute_repl_main_menu():
         elif user_choice == 'c':
             exit()
 
-display_introduction()
 
 execute_repl_main_menu()
