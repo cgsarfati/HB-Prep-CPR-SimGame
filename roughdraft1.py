@@ -35,8 +35,8 @@ def get_CPR_tutorial_main_menu():
     return user_choice
 
 
-def execute_user_interaction_CPR_main_menu():
-    """Executes loop acccording to user input from main menu function"""
+def execute_user_input_CPR_tutorial_menu():
+    """Executes loop acccording to user input from main menu tutorial function"""
 
     #initial list for user input to serve as road map to handle already-picked
     #choices. starts all false. after user types correct input, item reassigned
@@ -65,9 +65,9 @@ def execute_user_interaction_CPR_main_menu():
                 user_map[0] = 'True'
                 #updated map = [T, F, F]
             elif user_map[0] == 'True' and user_map[1] == 'False':
-                print "already did c, do a now and b later"
+                print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Airway review now!"
             elif user_map[1] == 'True' and user_map[2] == 'False':
-                print "already did c and a, do b now"
+                print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Breathing review now!"
 
         if choice == 'a':
         #a. check airway
@@ -76,9 +76,9 @@ def execute_user_interaction_CPR_main_menu():
                 user_map[1] = 'True'
                 #updated map = [T, T, F]
             elif user_map[0] == 'False':
-                print "do c first"
+                print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Compressions review now!"
             elif user_map[1] == 'True' and user_map[2] == 'False':
-                print "already did a and c, do b now"
+                print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Breathing review now!"
 
         if choice == 'b':
         #b. initiate breathing
@@ -87,15 +87,14 @@ def execute_user_interaction_CPR_main_menu():
                 user_map[2] = 'True'
                 #updated map = [T, T, T]
             elif user_map[0] == 'False':
-                print "do c first"
+                print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Compressions review now!"
             elif user_map[0] == 'True' and user_map[1] == 'False':
-                print "already did c#, do a now and b later"
+                print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Airway review now!"
 
         if choice == 'd':
             execute_repl_main_menu()
 
         if user_map == ['True', 'True', 'True']:
-            display_revival_scenario()
             playing = 'False'
 
     #return cumulative score from 3 challenges back to tracking score function
@@ -131,7 +130,6 @@ def ask_question_CPR_tutorial(questionlist):
         if response == ask['correct_answer']:
             print "Correct"
             score += 1
-            print "Your current score is " + str(score) + " out of " + str(len(questionlist))
         else:
             print "Sorry, the right answer is " + ask['correct_answer'] + ")"
 
@@ -223,14 +221,17 @@ def CPR_tutorial_tracking_score():
     """Display user's total score with numerical ranges that indicate how
     well user did in game"""
 
-    final_score = execute_user_interaction_CPR_main_menu()
+    final_score = execute_user_input_CPR_tutorial_menu()
 
     if final_score <= 2:
-        print "0-2 range: Oof. I'd recommend going through this tutorial again!"
+        #0-2/8 correct
+        print "Oof. I'd recommend going through this tutorial again!"
     elif final_score > 2 and final_score <= 5:
-        print "3-5 range scenario: I sensed you struggled a bit. I'd recommend going through this tutorial one more time!"
+        #3-5/8 correct
+        print "I sensed you struggled a bit. I recommend going through this tutorial one more time!"
     elif final_score > 6:
-        print "6-8 range scenario; Excellent! Looks like you're ready!"
+        #6-8/8 correct
+        print "Excellent! Looks like you're ready!"
 
 
 def get_main_menu():
