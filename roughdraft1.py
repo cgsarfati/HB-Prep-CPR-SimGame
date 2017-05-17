@@ -362,8 +362,10 @@ def perform_compressions_review():
 def display_revival_scenario():
     """Prints inevitable successful revival scenario of victim"""
 
-    #print that 911 has arrived and victim is revived successfully
-    print "WOP conclusion text"
+    print "The person suddenly gasps for air and is successfully revived."
+    print "The ambulance arrives."
+    print "The person gets transported to the hospital."
+    print "\nGood job!!! You completed the CPR simulation game!!!\n"
 
 
 def CPR_tutorial_tracking_score():
