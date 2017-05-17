@@ -3,21 +3,93 @@ def display_introduction():
     print "Welcome to the CPR Simulation Game!"
 
 
-def start_simulation():
+def simulation_introduction():
 
-    print "\nWelcome to the CPR Simulation game!"
+    print "\n - Welcome to the CPR Simulation game! - "
     user_name = raw_input("\nWhat is your name? ")
     print "\nHi " + user_name + ". It's very nice to meet y--"
-    print "\n*someone screams in the distance*"
-    print "\nstranger: HELP! HELP! HELP!"
-    print "\n*a stranger runs towards you*"
-    print "\nstranger: Hey!! Hurry come with me, I found someone unconscious!!!"
-    print "\n*you follow the stranger*"
-    print "\n*you see an individual laying face down on the floor, unresponsive*"
-    print "\nstranger: I'm going to call 911 right now."
-    print "\n*you check the person's pulse for 10 seconds. No pulse. No chest recoil or noticeable breathing."
+    print "\n*Someone screams in the distance*"
+    print "Stranger: HELP! HELP! HELP!"
+    print "*A stranger runs towards you*"
+    print "Stranger: Hey!! Hurry come with me, I found someone unconscious!!!"
+    print "*You follow the stranger*"
+    print "*You see an individual laying face down on the floor, unresponsive*"
+    print "Stranger: I'm going to call 911 right now."
+    print """*You check the person's pulse for 10 seconds. No pulse. No chest recoil or any noticeable breathing.\n"""
 
-    #print current condition of victim (e.g. no pulse, no breathing)
+
+def simulation_actions_menu():
+
+    print '\n - Actions -'
+    print '   a. Check airway'
+    print '   b. Initiate breathing'
+    print '   c. Perform compressions'
+
+    user_choice = raw_input("What do you do? ")
+    return user_choice
+
+
+def execute_simulation_actions():
+
+    user_map = ['False', 'False', 'False']
+
+    playing = 'True'
+
+    while playing == 'True':
+
+        choice = simulation_actions_menu()
+
+        if choice == 'c':
+        #c. perform compressions
+            if user_map[0] == 'False':
+                perform_compressions_simulation()
+                user_map[0] = 'True'
+                #updated map = [T, F, F]
+            elif user_map[0] == 'True' and user_map[1] == 'False':
+                print "You already performed compressions."
+            elif user_map[1] == 'True' and user_map[2] == 'False':
+                print "You already performed compressions and checked the airway."
+
+        if choice == 'a':
+        #a. check airway
+            if user_map[0] == 'True' and user_map[1] == 'False':
+                check_airway_simulation()
+                user_map[1] = 'True'
+                #updated map = [T, T, F]
+            elif user_map[0] == 'False':
+                print "Before checking the airway, let's get the blood flow moving first."
+            elif user_map[1] == 'True' and user_map[2] == 'False':
+                print "You already did compressions and checked the airway. Person still not breathing."
+
+        if choice == 'b':
+        #b. initiate breathing
+            if user_map[1] == 'True' and user_map[2] == 'False':
+                initiate_breathing_simulation()
+                user_map[2] = 'True'
+                #updated map = [T, T, T]
+            elif user_map[0] == 'False':
+                print "Before giving rescue breathes, let's get the blood flow moving first."
+            elif user_map[0] == 'True' and user_map[1] == 'False':
+                print "Before giving rescue breathes, let's check if the person is breathing."
+
+        if user_map == ['True', 'True', 'True']:
+            display_revival_scenario()
+            playing = 'False'
+
+
+def perform_compressions_simulation():
+
+    print 'c sim'
+
+
+def check_airway_simulation():
+
+    print 'a sim'
+
+
+def initiate_breathing_simulation():
+
+    print 'b sim'
 
 
 def get_CPR_tutorial_main_menu():
@@ -256,7 +328,8 @@ def execute_repl_main_menu():
         user_choice = get_main_menu()
 
         if user_choice == 'a':
-            start_simulation()
+            simulation_introduction()
+            execute_simulation_actions()
             playing = 'False'
 
         elif user_choice == 'b':
