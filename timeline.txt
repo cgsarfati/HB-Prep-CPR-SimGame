@@ -4,12 +4,9 @@ May 15: solve combining 3 question functions into one - DONE
 
 May 16: put CPR info - WIP
 
-May 17: clean up format + responses for all wrong user input types
+May 17: clean up format + responses for all wrong user input types + convert main file into multiple (code looks too long)
 
 May 18-19: added features (grid game, guess-the-number game)
-- More interactive intro/conclusion
-- “Hint” choice as part of multiple-choice prompt 
-- Score system (different endings depending how well user does)
 - MINI-GAME: Creates grid as chest visual instead of “compression location” multiple-choice question. Has various letters placed in grid mimicking chest location. User is prompted to type in the two correct letters corresponding to the correct hand placement during CPR.
 - MINI-GAME: “Guess the number” instead of “compression rate - how many compressions per minute should user do during CPR?” multiple-choice question. Player is prompted to input correct number. “Too high” / “Too low” if wrong until player is correct. 
 
