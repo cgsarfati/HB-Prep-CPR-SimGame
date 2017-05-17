@@ -1,3 +1,8 @@
+def display_introduction():
+
+    print "Welcome to the CPR Simulation Game!"
+
+
 def start_simulation():
 
     print "\nWelcome to the CPR Simulation game!"
@@ -9,12 +14,13 @@ def start_simulation():
     print "\nstranger: Hey!! Hurry come with me, I found someone unconscious!!!"
     print "\n*you follow the stranger*"
     print "\n*you see an individual laying face down on the floor, unresponsive*"
-    print "\nstranger: I'm going to call 911 right now"
+    print "\nstranger: I'm going to call 911 right now."
+    print "\n*you check the person's pulse for 10 seconds. No pulse. No chest recoil or noticeable breathing."
 
     #print current condition of victim (e.g. no pulse, no breathing)
 
 
-def get_CPR_main_menu():
+def get_CPR_tutorial_main_menu():
     """Prints CPR tutorial menu and asks user to make a choice"""
 
     print '\n   Let us go through CPR Procedure!'
@@ -50,7 +56,7 @@ def execute_user_interaction_CPR_main_menu():
     while playing == 'True':
 
         #transfers return input from get_main_menu function to use in loop
-        choice = get_CPR_main_menu()
+        choice = get_CPR_tutorial_main_menu()
 
         if choice == 'c':
         #c. perform compressions
@@ -139,14 +145,14 @@ def check_airway_review():
 
     airway_questions = [
         {
-            'question': 'is person breathing question 1',
-            'correct_answer': str(4),
-            'options': ['answer1', 'answer2', 'answer3', 'rightanswer4'],
+            'question': 'What are signs of "normal breathing" on an unconscious person?',
+            'correct_answer': str(3),
+            'options': ["Presence of chest recoil", "Feeling the person's breath on your cheek and ear", "Both 1 and 2"],
             'try_again': "customizable try again message"},
         {
-            'question': 'pulse question 2',
+            'question': 'Is gasping considered "normal breathing"?',
             'correct_answer': str(2),
-            'options': ['answer1', 'rightanswer2', 'answer3', 'answer4'],
+            'options': ['Yes', 'No'],
             'try_again': "customizable try again message2"}
         ]
 
@@ -160,19 +166,19 @@ def initiate_breathing_review():
 
     breathing_questions = [
         {
-            'question': 'airway technique question 1',
-            'correct_answer': str(4),
-            'options': ['answer1', 'answer2', 'answer3', 'rightanswer4'],
+            'question': "What is the proper technique of opening a person's airway during rescue breathing",
+            'correct_answer': str(1),
+            'options': ['Head-tilt, chin-lift maneuver', 'Head-tilt, chin-down maneuver', 'It does not matter', "Do not change the position of the person's neck"],
             'try_again': "customizable try again message"},
         {
-            'question': 'amount of breathes question 2',
+            'question': 'How many rescue breathes per 30 compressions do you give during CPR',
             'correct_answer': str(2),
-            'options': ['answer1', 'rightanswer2', 'answer3', 'answer4'],
+            'options': ['1', '2', '3', '4'],
             'try_again': "customizable try again message2"},
         {
-            'question': 'amount of breathes question 2',
-            'correct_answer': str(2),
-            'options': ['answer1', 'rightanswer2', 'answer3', 'answer4'],
+            'question': 'How do you know if you successfully executed a rescue breath',
+            'correct_answer': str(3),
+            'options': ['Presence of pulse', 'If person becomes conscious', 'Presence of chest recoil', 'None of the above'],
             'try_again': "customizable try again message2"}
         ]
 
@@ -186,19 +192,19 @@ def perform_compressions_review():
 
     compressions_questions = [
         {
-            'question': 'rate question 1',
-            'correct_answer': str(4),
-            'options': ['answer1', 'answer2', 'answer3', 'rightanswer4'],
+            'question': 'How many compressions per 2 rescue breathes do you initiate on an adult if you are alone',
+            'correct_answer': str(3),
+            'options': ['10', '20', '30', '40'],
             'try_again': "customizable try again message"},
         {
-            'question': 'depth question 2',
-            'correct_answer': str(2),
-            'options': ['answer1', 'rightanswer2', 'answer3', 'answer4'],
+            'question': "How deep do you push down on an individual's chest during adult CPR",
+            'correct_answer': str(3),
+            'options': ['As hard as you can', 'Until you hear a crack', 'At least 2 inches but not more than 2.4', 'At most 1 inch'],
             'try_again': "customizable try again message2"},
         {
-            'question': 'location question 3',
+            'question': 'What is the proper hand placement during compressions for adult CPR',
             'correct_answer': str(2),
-            'options': ['answer1', 'rightanswer2', 'answer3', 'answer4'],
+            'options': ['Right below the neck between the clavicles', '2 hands on the lower half of the sternum', 'Right on top of the belly button', "1 hand on the chest and 1 hand supporting the person's neck"],
             'try_again': "customizable try again message2"}
         ]
 
@@ -213,7 +219,7 @@ def display_revival_scenario():
     print "WOP conclusion text"
 
 
-def tracking_score():
+def CPR_tutorial_tracking_score():
     """Display user's total score with numerical ranges that indicate how
     well user did in game"""
 
@@ -230,7 +236,7 @@ def tracking_score():
 def get_main_menu():
     """Prints introductory main menu and asks user to make a choice"""
 
-    print "\nWelcome to the CPR Simulation game!\n"
+    print "\n   - Main Menu -\n"
 
     print '     a. Start game'
     print '     b. CPR tutorial'
@@ -253,10 +259,11 @@ def execute_repl_main_menu():
             playing = 'False'
 
         elif user_choice == 'b':
-            tracking_score()
+            CPR_tutorial_tracking_score()
 
         elif user_choice == 'c':
             exit()
 
+display_introduction()
 
 execute_repl_main_menu()
