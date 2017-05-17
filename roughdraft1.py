@@ -25,7 +25,7 @@ def simulation_actions_menu():
     print '   b. Initiate breathing'
     print '   c. Perform compressions'
 
-    user_choice = raw_input("What do you do? ")
+    user_choice = raw_input("\nWhat do you do? ")
     return user_choice
 
 
@@ -77,19 +77,96 @@ def execute_simulation_actions():
             playing = 'False'
 
 
-def perform_compressions_simulation():
+def ask_question_simulation(actionlist):
 
-    print 'c sim'
+    for ask in actionlist:
+
+        print ask['question'] + "?"
+
+        n = 1
+        for option in ask['options']:
+            print "%d) %s" % (n, option)
+            n = n + 1
+
+        response = raw_input(">> ")
+
+        if response == ask['correct_answer']:
+            print ask['successful_message']
+        else:
+            print ask['try_again']
+
+
+def perform_compressions_simulation():
+    """Takes user to compressions scenario of CPR"""
+
+    #grid mini game first hand location
+
+    compressions_actions = [
+        {
+            'question': '\nYou now placed your hands on the correct chest location. How many compressions per 2 rescue breathes will you do',
+            'correct_answer': str(3),
+            'options': ['10', '20', '30', '40'],
+            'successful_message': 'Good job, that makes sense!',
+            'try_again': "That doesn't seem to be the right amount. Let's do 30 compressions instead."},
+        {
+            'question': "\nHow deep will you push down during your compressions",
+            'correct_answer': str(3),
+            'options': ['As hard as I can', 'Until I hear a crack', 'At least 2 inches but not more than 2.4', 'At most 1 inch'],
+            'successful_message': 'Okay!',
+            'try_again': "That doesn't sound safe. Let's do at least 2 inches in depth."}
+        ]
+
+    ask_question_simulation(compressions_actions)
+
+    print '\nYou successfully performed 30 compressions.'
 
 
 def check_airway_simulation():
+    """Takes user to airway scenario of CPR"""
 
-    print 'a sim'
+    airway_actions = [
+        {
+            'question': "\nYou decided to check the person's airway. How will you do that",
+            'correct_answer': str(1),
+            'options': ["Check for chest recoil and feel for the person's breath", "Squeeze person's nostrils", "Shake person"],
+            'successful_message': 'Good job, that makes sense!',
+            'try_again': "That doesn't seem right. Let's check for chest recoil and feel for the person's breath instead."},
+        {
+            'question': '\nThere is no chest recoil or noticeable breathing. If the person was gasping, would that be normal breathing"?',
+            'correct_answer': str(2),
+            'options': ['Yes', 'No'],
+            'successful_message': 'Yep, gasping is not normal breathing!',
+            'try_again': "Gasping is actually not normal breathing."}
+        ]
+
+    ask_question_simulation(airway_actions)
+
+    print '\nYou successfully checked the airway. You also checked for pulse. Still no signs of normal breathing or pulse present.'
 
 
 def initiate_breathing_simulation():
+    """Takes user to breathing scenario of CPR"""
 
-    print 'b sim'
+    #compression to rescue breathes mini game
+
+    breathing_actions = [
+        {
+            'question': "\nYou now decide to open the person's airway before giving rescue breathes. How",
+            'correct_answer': str(1),
+            'options': ['Head-tilt, chin-lift maneuver', 'Head-tilt, chin-down maneuver'],
+            'successful_message': 'Perfect!',
+            'try_again': "Actually, we need to lift the chin to straighten the airway."},
+        {
+            'question': '\nHow do you know if you successfully performed a rescue breath',
+            'correct_answer': str(3),
+            'options': ['Presence of pulse', 'If you do not meet resistance', 'Presence of chest recoil'],
+            'successful_message': 'Yes, simultaneously check for chest recoil. If it rises, you are doing it right!',
+            'try_again': "A successful rescue breath actually involves the presence of chest recoil."}
+        ]
+
+    ask_question_simulation(breathing_actions)
+
+    print '\nYou successfully performed 2 rescue breathes.'
 
 
 def get_CPR_tutorial_main_menu():
@@ -297,13 +374,13 @@ def CPR_tutorial_tracking_score():
 
     if final_score <= 2:
         #0-2/8 correct
-        print "Oof. I'd recommend going through this tutorial again!"
+        print "\nOof. I'd recommend going through this tutorial again!"
     elif final_score > 2 and final_score <= 5:
         #3-5/8 correct
-        print "I sensed you struggled a bit. I recommend going through this tutorial one more time!"
+        print "\nI sensed you struggled a bit. I recommend going through this tutorial one more time!"
     elif final_score > 6:
         #6-8/8 correct
-        print "Excellent! Looks like you're ready!"
+        print "\nExcellent! Looks like you're ready!"
 
 
 def get_main_menu():
