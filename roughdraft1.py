@@ -1,3 +1,6 @@
+from string import whitespace
+
+
 def display_introduction():
 
     print "Welcome to the CPR Simulation Game!"
@@ -6,8 +9,8 @@ def display_introduction():
 def simulation_introduction():
 
     print "\n - Welcome to the CPR Simulation game! - "
-    user_name = raw_input("\nWhat is your name? ")
-    print "\nHi " + user_name + ". It's very nice to meet y--"
+    user_name = raw_input("\nWhat is your name? >>> ")
+    print "\nHi " + user_name.capitalize() + ". It's very nice to meet y--"
     print "\n*Someone screams in the distance*"
     print "Stranger: HELP! HELP! HELP!"
     print "*A stranger runs towards you*"
@@ -24,55 +27,60 @@ def simulation_actions_menu():
     print '   a. Check airway'
     print '   b. Initiate breathing'
     print '   c. Perform compressions'
+    print '   d. Exit game'
 
-    user_choice = raw_input("\nWhat do you do? ")
+    user_choice = raw_input("\nWhat do you do? >>> ")
     return user_choice
 
 
 def execute_simulation_actions():
 
-    user_map = ['False', 'False', 'False']
+    user_map_simulation = ['False', 'False', 'False']
 
     playing = 'True'
 
     while playing == 'True':
 
         choice = simulation_actions_menu()
+        choice = choice.lower().translate(None, whitespace)
 
-        if choice == 'c':
+        if choice == 'c' or 'performcompressions':
         #c. perform compressions
-            if user_map[0] == 'False':
+            if user_map_simulation[0] == 'False':
                 perform_compressions_simulation()
-                user_map[0] = 'True'
+                user_map_simulation[0] = 'True'
                 #updated map = [T, F, F]
-            elif user_map[0] == 'True' and user_map[1] == 'False':
+            elif user_map_simulation[0] == 'True' and user_map_simulation[1] == 'False':
                 print "You already performed compressions."
-            elif user_map[1] == 'True' and user_map[2] == 'False':
+            elif user_map_simulation[1] == 'True' and user_map_simulation[2] == 'False':
                 print "You already performed compressions and checked the airway."
 
-        if choice == 'a':
+        if choice == 'a' or 'checkairway':
         #a. check airway
-            if user_map[0] == 'True' and user_map[1] == 'False':
+            if user_map_simulation[0] == 'True' and user_map_simulation[1] == 'False':
                 check_airway_simulation()
-                user_map[1] = 'True'
+                user_map_simulation[1] = 'True'
                 #updated map = [T, T, F]
-            elif user_map[0] == 'False':
+            elif user_map_simulation[0] == 'False':
                 print "Before checking the airway, let's get the blood flow moving first."
-            elif user_map[1] == 'True' and user_map[2] == 'False':
+            elif user_map_simulation[1] == 'True' and user_map_simulation[2] == 'False':
                 print "You already did compressions and checked the airway. Person still not breathing."
 
-        if choice == 'b':
+        if choice == 'b' or 'initiatebreathing':
         #b. initiate breathing
-            if user_map[1] == 'True' and user_map[2] == 'False':
+            if user_map_simulation[1] == 'True' and user_map_simulation[2] == 'False':
                 initiate_breathing_simulation()
-                user_map[2] = 'True'
+                user_map_simulation[2] = 'True'
                 #updated map = [T, T, T]
-            elif user_map[0] == 'False':
+            elif user_map_simulation[0] == 'False':
                 print "Before giving rescue breathes, let's get the blood flow moving first."
-            elif user_map[0] == 'True' and user_map[1] == 'False':
+            elif user_map_simulation[0] == 'True' and user_map_simulation[1] == 'False':
                 print "Before giving rescue breathes, let's check if the person is breathing."
 
-        if user_map == ['True', 'True', 'True']:
+        if choice == 'd':
+            exit()
+
+        if user_map_simulation == ['True', 'True', 'True']:
             display_revival_scenario()
             playing = 'False'
 
@@ -88,7 +96,7 @@ def ask_question_simulation(actionlist):
             print "%d) %s" % (n, option)
             n = n + 1
 
-        response = raw_input(">> ")
+        response = raw_input(">>> ")
 
         if response == ask['correct_answer']:
             print ask['successful_message']
@@ -178,7 +186,7 @@ def get_CPR_tutorial_main_menu():
     print '     c. Perform compressions review'
     print '     d. Back to main menu \n'
 
-    user_choice = raw_input("What would you like to do? ")
+    user_choice = raw_input("What would you like to do? >>> ")
 
     #user_choice to be used in execute_repl_in_main_menu functio
     return user_choice
@@ -271,7 +279,7 @@ def ask_question_CPR_tutorial(questionlist):
             n = n + 1
 
         #prompts user input
-        response = raw_input("What is your answer? ")
+        response = raw_input("What is your answer? >>> ")
 
         #if correct input, outputs current score; if not, outputs try again
         #message and moves on to next question. currently doesn't give user
@@ -394,7 +402,7 @@ def get_main_menu():
     print '     b. CPR tutorial'
     print '     c. Exit game \n'
 
-    choice = raw_input('Choose from the menu options: ')
+    choice = raw_input('Choose from the menu options >>> ')
     return choice
 
 
@@ -409,7 +417,6 @@ def execute_repl_main_menu():
         if user_choice == 'a':
             simulation_introduction()
             execute_simulation_actions()
-            playing = 'False'
 
         elif user_choice == 'b':
             CPR_tutorial_tracking_score()
