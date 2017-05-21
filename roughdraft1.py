@@ -1,28 +1,50 @@
+from time import sleep
 import string
 from string import whitespace
 
 
+def print_storyline(scenario):
+    """Prints unfolding scenario sentences with 2.5 sec delay
+
+    Arguments:
+        scenario - list of sentences from unfolding storyline"""
+
+    #uses loop to print each item (sentence) in list (scenario) w/ 2.5 sec delay
+    for sentence in scenario:
+        print sentence
+        sleep(2.5)
+
+
 def display_introduction():
-    """Prints introduction"""
+    """Prints introduction before main menu"""
 
     print "\nWelcome to the CPR Simulation Game!"
 
 
 def simulation_introduction():
-    """Prints scenario with user input of player name. Also uses time module with 1 second delay between statements"""
+    """Prints scenario with user input of player name. Also uses time module
+    with 2.5 second delay between statements"""
 
-    print "\n - Welcome to the CPR Simulation game! - "
-    #ask user name, automatically capitalizes during output
+    print '\n ----- Welcome to the CPR Simulation game! -----'
+
+    #prompt user input
     user_name = raw_input("\nWhat is your name? >>> ")
-    print "\nHi " + user_name.capitalize() + ". It's very nice to meet y--"
-    print "\n*Someone screams in the distance*"
-    print "Stranger: HELP! HELP! HELP!"
-    print "*A stranger runs towards you*"
-    print "Stranger: Hey!! Hurry come with me, I found someone unconscious!!!"
-    print "*You follow the stranger*"
-    print "*You see an individual laying face down on the floor, unresponsive*"
-    print "Stranger: I'm going to call 911 right now."
-    print "*You check the pulse for 10 seconds. No pulse. No chest recoil or any noticeable breathing.\n"
+
+    introduction = [
+        "\nHi " + user_name.capitalize() + ". It's very nice to meet y--",
+        "\n*Someone screams in the distance*",
+        "Stranger: HELP! HELP! HELP!",
+        "*A stranger runs towards you*",
+        "Stranger: Hey!! Hurry come with me, I found someone unconscious!!!",
+        "*You follow the stranger*",
+        "*You see an individual laying face down on the floor, unresponsive*",
+        "Stranger: I'm going to call 911 right now.",
+        "*You check the pulse for 10 seconds*",
+        "*No pulse. No chest recoil or any noticeable breathing.\n"
+        ]
+
+    #uses 2.5 sec delay function to print list above
+    print_storyline(introduction)
 
 
 def simulation_actions_menu():
@@ -447,12 +469,17 @@ def perform_compressions_review():
 
 
 def display_revival_scenario():
-    """Prints inevitable successful revival scenario of victim"""
+    """Prints inevitable successful revival scenario of victim using time module of 2.5 sec delay"""
 
-    print "The person suddenly gasps for air and is successfully revived."
-    print "The ambulance arrives."
-    print "The person gets transported to the hospital."
-    print "\nGood job!!! You completed the CPR simulation game!!!\n"
+    conclusion = [
+        "\nThe person suddenly gasps for air and is successfully revived.",
+        "The ambulance arrives.",
+        "The person gets transported to the hospital.",
+        "\nGood job!!! You completed the CPR simulation game!!!\n"
+        ]
+
+    #uses 2.5 sec delay function to print list above
+    print_storyline(conclusion)
 
 
 def CPR_tutorial_tracking_score():
