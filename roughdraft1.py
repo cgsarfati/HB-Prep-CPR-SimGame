@@ -1,3 +1,4 @@
+import string
 from string import whitespace
 
 
@@ -60,9 +61,12 @@ def execute_simulation_actions():
 
     while playing == 'True':
 
+        #transfers return input from simulations_action_menu() to use in loop
         choice = simulation_actions_menu()
+        #clean up user input: lowercase and remove spaces
         choice = choice.lower().translate(None, whitespace)
 
+        #clean up user input: if all characters, continue. if number/symbol, print error
         if choice.isalpha():
             if choice == 'c' or choice == 'performcompressions':
             #c. perform compressions
@@ -98,32 +102,52 @@ def execute_simulation_actions():
                     print "Before giving rescue breathes, let's check if the person is breathing."
 
             if choice == 'd':
+            #d. back to main menu
                 execute_repl_main_menu()
 
             if user_map_simulation == ['True', 'True', 'True']:
+                #simulation finished, now goes to revival scenario text
                 display_revival_scenario()
+                #exit loop
                 playing = 'False'
         else:
             print "Invalid. Make sure not to have any punctuation or numbers in your response!"
 
 
 def ask_question_simulation(actionlist):
+    """Formats simulation questions from dictionary and iterates through them
 
+    arguments:
+        action list: placeholder for list of dictionaries containing C/A/B questions"""
+
+    #loops over each item in list of dictionaries
     for ask in actionlist:
 
-        print ask['question'] + "?"
+        #while loop used so if invalid input, repeats question. if wrong/right intended answer, continues to next q.
+        while True:
 
-        n = 1
-        for option in ask['options']:
-            print "%d) %s" % (n, option)
-            n = n + 1
+            print ask['question'] + "?"
 
-        response = raw_input(">>> ")
+            #formats question: e.g. 1) "Question"; iterates over each 'options' value
+            n = 0
+            for option in ask['options']:
+                print "   " + str(string.lowercase[n]) + ". " + option
+                n = n + 1
 
-        if response == ask['correct_answer']:
-            print ask['successful_message']
-        else:
-            print ask['try_again']
+            #prompts user input
+            response = raw_input(">>> ")
+            response = response.lower().translate(None, whitespace)
+
+            #taps into keys from list of dictionaries for corresponding values
+            if response.isalpha() and len(response) == 1:
+                if response == ask['correct_answer']:
+                    print ask['successful_message']
+                    break
+                else:
+                    print ask['try_again']
+                    break
+            else:
+                print "Invalid response. Please type corresponding letter without punctuation or numbers."
 
 
 def perform_compressions_simulation():
@@ -134,18 +158,19 @@ def perform_compressions_simulation():
     compressions_actions = [
         {
             'question': '\nYou now placed your hands on the correct chest location. How many compressions per 2 rescue breathes will you do',
-            'correct_answer': str(3),
+            'correct_answer': 'c',
             'options': ['10', '20', '30', '40'],
             'successful_message': 'Good job, that makes sense!',
             'try_again': "That doesn't seem to be the right amount. Let's do 30 compressions instead."},
         {
             'question': "\nHow deep will you push down during your compressions",
-            'correct_answer': str(3),
+            'correct_answer': 'c',
             'options': ['As hard as I can', 'Until I hear a crack', 'At least 2 inches but not more than 2.4', 'At most 1 inch'],
             'successful_message': 'Okay!',
             'try_again': "That doesn't sound safe. Let's do at least 2 inches in depth."}
         ]
 
+    #use list above to put into question format function
     ask_question_simulation(compressions_actions)
 
     print '\nYou successfully performed 30 compressions.'
@@ -157,18 +182,19 @@ def check_airway_simulation():
     airway_actions = [
         {
             'question': "\nYou decided to check the person's airway. How will you do that",
-            'correct_answer': str(1),
+            'correct_answer': 'a',
             'options': ["Check for chest recoil and feel for the person's breath", "Squeeze person's nostrils", "Shake person"],
             'successful_message': 'Good job, that makes sense!',
             'try_again': "That doesn't seem right. Let's check for chest recoil and feel for the person's breath instead."},
         {
-            'question': '\nThere is no chest recoil or noticeable breathing. If the person was gasping, would that be normal breathing"?',
-            'correct_answer': str(2),
+            'question': '\nThere is no chest recoil or noticeable breathing. If the person was gasping, would that be normal breathing',
+            'correct_answer': 'b',
             'options': ['Yes', 'No'],
             'successful_message': 'Yep, gasping is not normal breathing!',
             'try_again': "Gasping is actually not normal breathing."}
         ]
 
+    #use list above to put into question format function
     ask_question_simulation(airway_actions)
 
     print '\nYou successfully checked the airway. You also checked for pulse. Still no signs of normal breathing or pulse present.'
@@ -182,18 +208,19 @@ def initiate_breathing_simulation():
     breathing_actions = [
         {
             'question': "\nYou now decide to open the person's airway before giving rescue breathes. How",
-            'correct_answer': str(1),
+            'correct_answer': 'a',
             'options': ['Head-tilt, chin-lift maneuver', 'Head-tilt, chin-down maneuver'],
             'successful_message': 'Perfect!',
             'try_again': "Actually, we need to lift the chin to straighten the airway."},
         {
             'question': '\nHow do you know if you successfully performed a rescue breath',
-            'correct_answer': str(3),
+            'correct_answer': 'c',
             'options': ['Presence of pulse', 'If you do not meet resistance', 'Presence of chest recoil'],
             'successful_message': 'Yes, simultaneously check for chest recoil. If it rises, you are doing it right!',
             'try_again': "A successful rescue breath actually involves the presence of chest recoil."}
         ]
 
+    #use list above to put into question format functio
     ask_question_simulation(breathing_actions)
 
     print '\nYou successfully performed 2 rescue breathes.'
@@ -208,9 +235,10 @@ def get_CPR_tutorial_main_menu():
     print '     c. Perform compressions'
     print '     d. Back to main menu \n'
 
+    #prompts user input
     user_choice = raw_input("What would you like to do? >>> ")
 
-    #user_choice to be used in execute_repl_in_main_menu functio
+    #user_choice to be used in execute_repl_in_main_menu function
     return user_choice
 
 
@@ -236,8 +264,10 @@ def execute_user_input_CPR_tutorial_menu():
 
         #transfers return input from get_main_menu function to use in loop
         choice = get_CPR_tutorial_main_menu()
+        #clean up user input: lowercase and remove spaces
         choice = choice.lower().translate(None, whitespace)
 
+        #clean up user input: if all characters, continue. if number/symbol, print error
         if choice.isalpha():
             if choice == 'c' or choice == 'performcompressions':
             #c. perform compressions
@@ -261,7 +291,7 @@ def execute_user_input_CPR_tutorial_menu():
                 elif user_map[1] == 'True' and user_map[2] == 'False':
                     print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Breathing review now!"
 
-            if choice == 'b' or 'initiatebreathing':
+            if choice == 'b' or choice == 'initiatebreathing':
             #b. initiate breathing
                 if user_map[1] == 'True' and user_map[2] == 'False':
                     current_score += initiate_breathing_review()
@@ -273,6 +303,7 @@ def execute_user_input_CPR_tutorial_menu():
                     print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Airway review now!"
 
             if choice == 'd' or choice == 'backtomainmenu':
+            #d. back to main menu
                 execute_repl_main_menu()
 
             if user_map == ['True', 'True', 'True']:
@@ -285,6 +316,10 @@ def execute_user_input_CPR_tutorial_menu():
 
 
 def ask_question_CPR_tutorial(questionlist):
+    """ Formats tutorial questions from dictionary and iterates through them
+
+    arguments:
+        questionlist: placeholder for list of dictionaries containing C/A/B questions"""
 
     #score starts at 0, will either +1 or stay at current score depending if
     #user inputs correct/wrong answer
@@ -295,26 +330,35 @@ def ask_question_CPR_tutorial(questionlist):
     #values can be customized to allow for flexib0ilty.
     for ask in questionlist:
 
-        #prints question
-        print ask['question'] + "?"
+        #while loop used so if invalid input, repeats question. if wrong/right intended answer, continues to next q.
+        while True:
 
-        #formats question: e.g. 1) "Question"; iterates over each 'options' value
-        n = 1
-        for option in ask['options']:
-            print "%d) %s" % (n, option)
-            n = n + 1
+            #prints question
+            print ask['question'] + "?"
 
-        #prompts user input
-        response = raw_input("What is your answer? >>> ")
+            #formats question: e.g. 1) "Question"; iterates over each 'options' value
+            n = 0
+            for option in ask['options']:
+                print "   " + str(string.lowercase[n]) + ". " + option
+                n = n + 1
 
-        #if correct input, outputs current score; if not, outputs try again
-        #message and moves on to next question. currently doesn't give user
-        #a second chance to answer correctly
-        if response == ask['correct_answer']:
-            print "Correct"
-            score += 1
-        else:
-            print "Sorry, the right answer is " + ask['correct_answer'] + ")"
+            #prompts user input
+            response = raw_input("\nWhat is your answer? >>> ")
+            response = response.lower().translate(None, whitespace)
+
+            if response.isalpha() and len(response) == 1:
+            #if correct input, outputs current score; if not, outputs try again
+            #message and moves on to next question. currently doesn't give user
+            #a second chance to answer correctly
+                if response == ask['correct_answer']:
+                    print "Correct!"
+                    score += 1
+                    break
+                else:
+                    print "Sorry, the right answer is " + ask['correct_answer'] + "."
+                    break
+            else:
+                print "Invalid response. Please type corresponding letter without punctuation or numbers."
 
     #returns back to current_score variable in main menu function
     return score
@@ -326,18 +370,21 @@ def check_airway_review():
 
     airway_questions = [
         {
-            'question': 'What are signs of "normal breathing" on an unconscious person?',
-            'correct_answer': str(3),
+            'question': '\nWhat are signs of "normal breathing" on an unconscious person',
+            'correct_answer': 'c',
             'options': ["Presence of chest recoil", "Feeling the person's breath on your cheek and ear", "Both 1 and 2"],
             'try_again': "customizable try again message"},
         {
-            'question': 'Is gasping considered "normal breathing"?',
-            'correct_answer': str(2),
+            'question': '\nIs gasping considered "normal breathing"',
+            'correct_answer': 'b',
             'options': ['Yes', 'No'],
             'try_again': "customizable try again message2"}
         ]
 
+    #use list above to put into question format function
     airway_score = ask_question_CPR_tutorial(airway_questions)
+
+    #return score back to execute_user_input_CPR_tutorial_menu()
     return airway_score
 
 
@@ -347,23 +394,26 @@ def initiate_breathing_review():
 
     breathing_questions = [
         {
-            'question': "What is the proper technique of opening a person's airway during rescue breathing",
-            'correct_answer': str(1),
+            'question': "\nWhat is the proper technique of opening a person's airway during rescue breathing",
+            'correct_answer': 'a',
             'options': ['Head-tilt, chin-lift maneuver', 'Head-tilt, chin-down maneuver', 'It does not matter', "Do not change the position of the person's neck"],
             'try_again': "customizable try again message"},
         {
-            'question': 'How many rescue breathes per 30 compressions do you give during CPR',
-            'correct_answer': str(2),
+            'question': '\nHow many rescue breathes per 30 compressions do you give during CPR',
+            'correct_answer': 'b',
             'options': ['1', '2', '3', '4'],
             'try_again': "customizable try again message2"},
         {
-            'question': 'How do you know if you successfully executed a rescue breath',
-            'correct_answer': str(3),
+            'question': '\nHow do you know if you successfully executed a rescue breath',
+            'correct_answer': 'c',
             'options': ['Presence of pulse', 'If person becomes conscious', 'Presence of chest recoil', 'None of the above'],
             'try_again': "customizable try again message2"}
         ]
 
+    #use list above to put into question format function
     breathing_score = ask_question_CPR_tutorial(breathing_questions)
+
+    #return score back to execute_user_input_CPR_tutorial_menu()
     return breathing_score
 
 
@@ -373,23 +423,26 @@ def perform_compressions_review():
 
     compressions_questions = [
         {
-            'question': 'How many compressions per 2 rescue breathes do you initiate on an adult if you are alone',
-            'correct_answer': str(3),
+            'question': '\nHow many compressions per 2 rescue breathes do you initiate on an adult if you are alone',
+            'correct_answer': 'c',
             'options': ['10', '20', '30', '40'],
             'try_again': "customizable try again message"},
         {
-            'question': "How deep do you push down on an individual's chest during adult CPR",
-            'correct_answer': str(3),
+            'question': "\nHow deep do you push down on an individual's chest during adult CPR",
+            'correct_answer': 'c',
             'options': ['As hard as you can', 'Until you hear a crack', 'At least 2 inches but not more than 2.4', 'At most 1 inch'],
             'try_again': "customizable try again message2"},
         {
-            'question': 'What is the proper hand placement during compressions for adult CPR',
-            'correct_answer': str(2),
+            'question': '\nWhat is the proper hand placement during compressions for adult CPR',
+            'correct_answer': 'b',
             'options': ['Right below the neck between the clavicles', '2 hands on the lower half of the sternum', 'Right on top of the belly button', "1 hand on the chest and 1 hand supporting the person's neck"],
             'try_again': "customizable try again message2"}
         ]
 
+    #use list above to put into question format function
     compressions_score = ask_question_CPR_tutorial(compressions_questions)
+
+    #return score back to execute_user_input_CPR_tutorial_menu()
     return compressions_score
 
 
@@ -423,12 +476,14 @@ def get_main_menu():
     """Prints introductory main menu and asks user to make a choice"""
 
     print "\n   - Main Menu -\n"
-
     print '     a. Start game'
     print '     b. CPR tutorial'
     print '     c. Exit game \n'
 
+    #prompt user choice
     choice = raw_input('Choose from the menu options >>> ')
+
+    #transfers raw input to execute_repl_main_menu()
     return choice
 
 
@@ -439,9 +494,13 @@ def execute_repl_main_menu():
 
     while playing == 'True':
 
+        #assigns variable to user input from get_main_menu()
         user_choice = get_main_menu()
+
+        #clean up user input: lowercase and remove spaces
         user_choice = user_choice.lower().translate(None, whitespace)
 
+        #clean up user input: if all characters, continue. if number/symbol, print error
         if user_choice.isalpha():
             if user_choice == 'a' or user_choice == 'startgame':
                 simulation_introduction()
