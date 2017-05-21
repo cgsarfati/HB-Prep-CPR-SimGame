@@ -2,13 +2,16 @@ from string import whitespace
 
 
 def display_introduction():
+    """Prints introduction"""
 
-    print "Welcome to the CPR Simulation Game!"
+    print "\nWelcome to the CPR Simulation Game!"
 
 
 def simulation_introduction():
+    """Prints scenario with user input of player name. Also uses time module with 1 second delay between statements"""
 
     print "\n - Welcome to the CPR Simulation game! - "
+    #ask user name, automatically capitalizes during output
     user_name = raw_input("\nWhat is your name? >>> ")
     print "\nHi " + user_name.capitalize() + ". It's very nice to meet y--"
     print "\n*Someone screams in the distance*"
@@ -18,25 +21,41 @@ def simulation_introduction():
     print "*You follow the stranger*"
     print "*You see an individual laying face down on the floor, unresponsive*"
     print "Stranger: I'm going to call 911 right now."
-    print """*You check the person's pulse for 10 seconds. No pulse. No chest recoil or any noticeable breathing.\n"""
+    print "*You check the pulse for 10 seconds. No pulse. No chest recoil or any noticeable breathing.\n"
 
 
 def simulation_actions_menu():
+    """Prints menu choices and asks user for response"""
 
     print '\n - Actions -'
     print '   a. Check airway'
     print '   b. Initiate breathing'
     print '   c. Perform compressions'
-    print '   d. Exit game'
+    print '   d. Back to main menu'
 
+    #ask user to choose from menu, returns choice to execute_simulation_actions() function
     user_choice = raw_input("\nWhat do you do? >>> ")
     return user_choice
 
 
 def execute_simulation_actions():
+    """Uses while loop to handle user input from main menu. All types of user
+    input considered through nested conditionals. Uses T/F switch in user road
+    map list to handle the correct order of responses"""
 
+    #initial list for user input to serve as road map to handle already-picked
+    #choices. starts all false. after user types correct input, item reassigned
+    #to true. user completes game when all items reassigned to true
     user_map_simulation = ['False', 'False', 'False']
 
+    #use road map below to follow logic behind nested conditionals
+    # [C, A, B] -- correct user inputs in order
+    # [F, F, F] -- 1st time menu shows. "Do C" as error message if input not C.
+    # [T, F, F] -- 2nd time menu shows. c now complete. "Do A" if input not A.
+    # [T, T, F] -- 3rd time menu shows. a now complete. "Do B" if input not B.
+    # [T, T, T] -- menu will not show. b now complete. function done.
+
+    #use in while loop as condition; reassign to False when user map [T, T, T]
     playing = 'True'
 
     while playing == 'True':
@@ -44,45 +63,48 @@ def execute_simulation_actions():
         choice = simulation_actions_menu()
         choice = choice.lower().translate(None, whitespace)
 
-        if choice == 'c' or 'performcompressions':
-        #c. perform compressions
-            if user_map_simulation[0] == 'False':
-                perform_compressions_simulation()
-                user_map_simulation[0] = 'True'
-                #updated map = [T, F, F]
-            elif user_map_simulation[0] == 'True' and user_map_simulation[1] == 'False':
-                print "You already performed compressions."
-            elif user_map_simulation[1] == 'True' and user_map_simulation[2] == 'False':
-                print "You already performed compressions and checked the airway."
+        if choice.isalpha():
+            if choice == 'c' or choice == 'performcompressions':
+            #c. perform compressions
+                if user_map_simulation[0] == 'False':
+                    perform_compressions_simulation()
+                    user_map_simulation[0] = 'True'
+                    #updated map = [T, F, F]
+                elif user_map_simulation[0] == 'True' and user_map_simulation[1] == 'False':
+                    print "You already performed compressions."
+                elif user_map_simulation[1] == 'True' and user_map_simulation[2] == 'False':
+                    print "You already performed compressions and checked the airway."
 
-        if choice == 'a' or 'checkairway':
-        #a. check airway
-            if user_map_simulation[0] == 'True' and user_map_simulation[1] == 'False':
-                check_airway_simulation()
-                user_map_simulation[1] = 'True'
-                #updated map = [T, T, F]
-            elif user_map_simulation[0] == 'False':
-                print "Before checking the airway, let's get the blood flow moving first."
-            elif user_map_simulation[1] == 'True' and user_map_simulation[2] == 'False':
-                print "You already did compressions and checked the airway. Person still not breathing."
+            if choice == 'a' or choice == 'checkairway':
+            #a. check airway
+                if user_map_simulation[0] == 'True' and user_map_simulation[1] == 'False':
+                    check_airway_simulation()
+                    user_map_simulation[1] = 'True'
+                    #updated map = [T, T, F]
+                elif user_map_simulation[0] == 'False':
+                    print "Before checking the airway, let's get the blood flow moving first."
+                elif user_map_simulation[1] == 'True' and user_map_simulation[2] == 'False':
+                    print "You already did compressions and checked the airway. Person still not breathing."
 
-        if choice == 'b' or 'initiatebreathing':
-        #b. initiate breathing
-            if user_map_simulation[1] == 'True' and user_map_simulation[2] == 'False':
-                initiate_breathing_simulation()
-                user_map_simulation[2] = 'True'
-                #updated map = [T, T, T]
-            elif user_map_simulation[0] == 'False':
-                print "Before giving rescue breathes, let's get the blood flow moving first."
-            elif user_map_simulation[0] == 'True' and user_map_simulation[1] == 'False':
-                print "Before giving rescue breathes, let's check if the person is breathing."
+            if choice == 'b' or choice == 'initiatebreathing':
+            #b. initiate breathing
+                if user_map_simulation[1] == 'True' and user_map_simulation[2] == 'False':
+                    initiate_breathing_simulation()
+                    user_map_simulation[2] = 'True'
+                    #updated map = [T, T, T]
+                elif user_map_simulation[0] == 'False':
+                    print "Before giving rescue breathes, let's get the blood flow moving first."
+                elif user_map_simulation[0] == 'True' and user_map_simulation[1] == 'False':
+                    print "Before giving rescue breathes, let's check if the person is breathing."
 
-        if choice == 'd':
-            exit()
+            if choice == 'd':
+                execute_repl_main_menu()
 
-        if user_map_simulation == ['True', 'True', 'True']:
-            display_revival_scenario()
-            playing = 'False'
+            if user_map_simulation == ['True', 'True', 'True']:
+                display_revival_scenario()
+                playing = 'False'
+        else:
+            print "Invalid. Make sure not to have any punctuation or numbers in your response!"
 
 
 def ask_question_simulation(actionlist):
@@ -180,10 +202,10 @@ def initiate_breathing_simulation():
 def get_CPR_tutorial_main_menu():
     """Prints CPR tutorial menu and asks user to make a choice"""
 
-    print '\n   Let us go through CPR Procedure!'
-    print '\n     a. Check airway review'
-    print '     b. Initiate breathing review'
-    print '     c. Perform compressions review'
+    print '\n   - CPR Procedures -'
+    print '\n     a. Check airway'
+    print '     b. Initiate breathing'
+    print '     c. Perform compressions'
     print '     d. Back to main menu \n'
 
     user_choice = raw_input("What would you like to do? >>> ")
@@ -214,45 +236,49 @@ def execute_user_input_CPR_tutorial_menu():
 
         #transfers return input from get_main_menu function to use in loop
         choice = get_CPR_tutorial_main_menu()
+        choice = choice.lower().translate(None, whitespace)
 
-        if choice == 'c':
-        #c. perform compressions
-            if user_map[0] == 'False':
-                current_score = perform_compressions_review()
-                user_map[0] = 'True'
-                #updated map = [T, F, F]
-            elif user_map[0] == 'True' and user_map[1] == 'False':
-                print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Airway review now!"
-            elif user_map[1] == 'True' and user_map[2] == 'False':
-                print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Breathing review now!"
+        if choice.isalpha():
+            if choice == 'c' or choice == 'performcompressions':
+            #c. perform compressions
+                if user_map[0] == 'False':
+                    current_score = perform_compressions_review()
+                    user_map[0] = 'True'
+                    #updated map = [T, F, F]
+                elif user_map[0] == 'True' and user_map[1] == 'False':
+                    print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Airway review now!"
+                elif user_map[1] == 'True' and user_map[2] == 'False':
+                    print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Breathing review now!"
 
-        if choice == 'a':
-        #a. check airway
-            if user_map[0] == 'True' and user_map[1] == 'False':
-                current_score += check_airway_review()
-                user_map[1] = 'True'
-                #updated map = [T, T, F]
-            elif user_map[0] == 'False':
-                print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Compressions review now!"
-            elif user_map[1] == 'True' and user_map[2] == 'False':
-                print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Breathing review now!"
+            if choice == 'a' or choice == 'checkairway':
+            #a. check airway
+                if user_map[0] == 'True' and user_map[1] == 'False':
+                    current_score += check_airway_review()
+                    user_map[1] = 'True'
+                    #updated map = [T, T, F]
+                elif user_map[0] == 'False':
+                    print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Compressions review now!"
+                elif user_map[1] == 'True' and user_map[2] == 'False':
+                    print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Breathing review now!"
 
-        if choice == 'b':
-        #b. initiate breathing
-            if user_map[1] == 'True' and user_map[2] == 'False':
-                current_score += initiate_breathing_review()
-                user_map[2] = 'True'
-                #updated map = [T, T, T]
-            elif user_map[0] == 'False':
-                print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Compressions review now!"
-            elif user_map[0] == 'True' and user_map[1] == 'False':
-                print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Airway review now!"
+            if choice == 'b' or 'initiatebreathing':
+            #b. initiate breathing
+                if user_map[1] == 'True' and user_map[2] == 'False':
+                    current_score += initiate_breathing_review()
+                    user_map[2] = 'True'
+                    #updated map = [T, T, T]
+                elif user_map[0] == 'False':
+                    print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Compressions review now!"
+                elif user_map[0] == 'True' and user_map[1] == 'False':
+                    print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Airway review now!"
 
-        if choice == 'd':
-            execute_repl_main_menu()
+            if choice == 'd' or choice == 'backtomainmenu':
+                execute_repl_main_menu()
 
-        if user_map == ['True', 'True', 'True']:
-            playing = 'False'
+            if user_map == ['True', 'True', 'True']:
+                playing = 'False'
+        else:
+                print "Invalid. Make sure not to have any punctuation or numbers in your response!"
 
     #return cumulative score from 3 challenges back to tracking score function
     return current_score
@@ -407,22 +433,27 @@ def get_main_menu():
 
 
 def execute_repl_main_menu():
+    """Uses REPL loop to handle user input from main menu"""
 
     playing = 'True'
 
     while playing == 'True':
 
         user_choice = get_main_menu()
+        user_choice = user_choice.lower().translate(None, whitespace)
 
-        if user_choice == 'a':
-            simulation_introduction()
-            execute_simulation_actions()
+        if user_choice.isalpha():
+            if user_choice == 'a' or user_choice == 'startgame':
+                simulation_introduction()
+                execute_simulation_actions()
 
-        elif user_choice == 'b':
-            CPR_tutorial_tracking_score()
+            elif user_choice == 'b' or user_choice == 'cprtutorial':
+                CPR_tutorial_tracking_score()
 
-        elif user_choice == 'c':
-            exit()
+            elif user_choice == 'c' or user_choice == 'exitgame':
+                exit()
+        else:
+            print "Invalid. Make sure not to have any punctuation or numbers in your response!"
 
 display_introduction()
 
