@@ -172,10 +172,71 @@ def ask_question_simulation(actionlist):
                 print "Invalid response. Please type corresponding letter without punctuation or numbers."
 
 
+def print_grid_introduction():
+    """Prints description and navigation instructions of game"""
+
+    print " \n--- Welcome to the CPR Simulation Mini Game #1 ---\n\n "
+
+    sleep(2)
+
+    print """Description: Below is a 2D grid of the victim's chest. Type in the
+    letter that corresponds to the correct hand placement of compressions when
+    performing CPR. You are allowed as many attempts as possible. \n"""
+
+    print """Navigation controls: Make sure to type an upper case letter. Do
+    not type numbers, include any punctuation, or type the. Otherwise, the prompt
+    will give you an error message. \n\n\n"""
+
+
+def print_grid_visual():
+    """Prints 2D grid with legend"""
+
+    print "        |   |                Legend: "
+    print "        | E |                    A = Left clavicle"
+    print "  __ __ __ __ __ __              B = Right clavicle"
+    print " |                 |             C = Lower half of sternum"
+    print " |   A    G   B    |             D = Under xiphoid process"
+    print " |                 |             E = Lower half of neck"
+    print " |        C   F    |             F = Heart"
+    print " |                 |             G = Upper half of sternum"
+    print " |                 | "
+    print " |        D        | "
+    print " |                 | "
+    print " |                 | "
+    print "  __ __ __ __ __ __  "
+
+
+def execute_grid_user_command():
+    """Uses nested conditionals for user input evaluation. Uses while loop for
+    wrong or invalid user input, so user has infinite attempts until they get
+    the correct answer"""
+
+    playing = "True"
+
+    while playing == "True":
+
+        user_choice = raw_input("\nWhat location will you pick for compressions? >>>")
+        user_choice = user_choice.lower().translate(None, whitespace)
+
+        if user_choice.isalpha():
+            if user_choice == "c" or user_choice == "lowerhalfofsternum":
+                print "Good job! That's right!"
+                sleep(2)
+                print "\n--- You completed CPR Simulation Mini-Game #1 ---\n"
+                sleep(2)
+                playing = "False"
+            else:
+                print "That does not seem right. Try again."
+        else:
+            print "Invalid. Make sure not to have any punctuation or numbers in your response!"
+
+
 def perform_compressions_simulation():
     """Takes user to compressions scenario of CPR"""
 
-    #grid mini game first hand location
+    print_grid_introduction()
+    print_grid_visual()
+    execute_grid_user_command()
 
     compressions_actions = [
         {
