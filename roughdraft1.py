@@ -175,7 +175,7 @@ def ask_question_simulation(actionlist):
 def print_grid_introduction():
     """Prints description and navigation instructions of game"""
 
-    print " \n--- Welcome to the CPR Simulation Mini Game #1 ---\n\n "
+    print " \n--- Welcome to the CPR Simulation Mini Game #1: 2D Compression Grid ---\n\n "
 
     sleep(2)
 
@@ -184,7 +184,7 @@ def print_grid_introduction():
     performing CPR. You are allowed as many attempts as possible. \n"""
 
     print """Navigation controls: Make sure to type an upper case letter. Do
-    not type numbers, include any punctuation, or type the. Otherwise, the prompt
+    not type numbers, or include any punctuation. Otherwise, the prompt
     will give you an error message. \n\n\n"""
 
 
@@ -213,9 +213,11 @@ def execute_grid_user_command():
 
     playing = "True"
 
+    #uses while loop so invalid/wrong responses allows user to try again until correct
     while playing == "True":
 
-        user_choice = raw_input("\nWhat location will you pick for compressions? >>>")
+        user_choice = raw_input("\nWhat location will you pick for compressions? >>> ")
+        #clean up code: converts user input to all lowercase and no spaces
         user_choice = user_choice.lower().translate(None, whitespace)
 
         if user_choice.isalpha():
@@ -234,10 +236,12 @@ def execute_grid_user_command():
 def perform_compressions_simulation():
     """Takes user to compressions scenario of CPR"""
 
+    #calls compressions mini game
     print_grid_introduction()
     print_grid_visual()
     execute_grid_user_command()
 
+    #continues to multiple choice scenario
     compressions_actions = [
         {
             'question': '\nYou now placed your hands on the correct chest location. How many compressions per 2 rescue breathes will you do',
@@ -283,10 +287,70 @@ def check_airway_simulation():
     print '\nYou successfully checked the airway. You also checked for pulse. Still no signs of normal breathing or pulse present.'
 
 
+def print_guess_the_number_introduction():
+    """Prints mini game introduction with description and navigation controls"""
+
+    print " \n--- Welcome to the CPR Simulation Mini Game #2: Guess the Number ---\n\n "
+
+    sleep(2)
+
+    print """Description: After completing 30 compressions, you now
+    need to decide how many rescue breathes to initiate. You have 5 tries to
+    type the correct number. After 5 tries, the game restarts.\n"""
+
+    print """Navigation controls: Make sure to only type a number. Do
+    not type letters, or include any punctuation. It is considered 1 try if
+    you type an invalid response. \n"""
+
+
+def execute_guess_the_number_user_command():
+    """Handles user input of guess the number mini game"""
+
+    attempts = 1
+    correct_number = 2
+    guess = " "
+
+    while correct_number != guess and attempts < 6:
+
+        guess = raw_input('\nHow many rescue breathes will you do? >>> ')
+
+        if guess.isdigit():
+            guess = int(guess)
+            if guess < correct_number:
+                print('Higher...')
+                attempts += 1
+            elif guess > correct_number:
+                print('Lower...')
+                attempts += 1
+        else:
+            print "Oh no, you typed something other than a number!"
+            attempts += 1
+
+    if attempts == 6:
+        print '\nSorry you reached the maximum number of tries'
+        print '\nThe correct number was', correct_number
+        print_guess_the_number_introduction()
+        execute_guess_the_number_user_command()
+    else:
+        print 'You guessed it! The correct number was', correct_number
+        if attempts == 1:
+            print 'You guessed it in', attempts, 'attempt\n'
+            sleep(2)
+            print "\n--- You completed CPR Simulation Mini-Game #1 ---\n"
+            sleep(2)
+        elif attempts > 1:
+            print 'You guessed it in', attempts, 'attempts\n'
+            sleep(2)
+            print "\n--- You completed CPR Simulation Mini-Game #1 ---\n"
+            sleep(2)
+
+
 def initiate_breathing_simulation():
     """Takes user to breathing scenario of CPR"""
 
-    #compression to rescue breathes mini game
+    #calls rescue breathes mini game
+    print_guess_the_number_introduction()
+    execute_guess_the_number_user_command()
 
     breathing_actions = [
         {
