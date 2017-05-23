@@ -310,14 +310,18 @@ def execute_guess_the_number_user_command():
     correct_number = 2
     guess = " "
 
+    #uses while loop so player can have 5 attempts before game over
     while correct_number != guess and attempts < 6:
 
         guess = raw_input('\nHow many rescue breathes will you do? >>> ')
 
+        #clean up code: if any characters/punctuation, error message
         if guess.isdigit():
+            #convert str to int to use arithmetic conditional
             guess = int(guess)
             if guess < correct_number:
                 print('Higher...')
+                #adds attempt in while loop; after 5 tries, breaks
                 attempts += 1
             elif guess > correct_number:
                 print('Lower...')
@@ -329,10 +333,12 @@ def execute_guess_the_number_user_command():
     if attempts == 6:
         print '\nSorry you reached the maximum number of tries'
         print '\nThe correct number was', correct_number
+        #replay game since user failed
         print_guess_the_number_introduction()
         execute_guess_the_number_user_command()
     else:
         print 'You guessed it! The correct number was', correct_number
+        #clean up code: attempt for 1, attempts for 2+
         if attempts == 1:
             print 'You guessed it in', attempts, 'attempt\n'
             sleep(2)
