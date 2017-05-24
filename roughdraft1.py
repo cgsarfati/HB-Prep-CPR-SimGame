@@ -1,6 +1,5 @@
 from time import sleep
 import string
-from string import whitespace
 
 
 def print_storyline(scenario):
@@ -86,7 +85,7 @@ def execute_simulation_actions():
         #transfers return input from simulations_action_menu() to use in loop
         choice = simulation_actions_menu()
         #clean up user input: lowercase and remove spaces
-        choice = choice.lower().translate(None, whitespace)
+        choice = choice.lower().translate(None, string.whitespace)
 
         #clean up user input: if all characters, continue. if number/symbol, print error
         if choice.isalpha():
@@ -158,7 +157,7 @@ def ask_question_simulation(actionlist):
 
             #prompts user input
             response = raw_input(">>> ")
-            response = response.lower().translate(None, whitespace)
+            response = response.lower().translate(None, string.whitespace)
 
             #taps into keys from list of dictionaries for corresponding values
             if response.isalpha() and len(response) == 1:
@@ -218,7 +217,7 @@ def execute_grid_user_command():
 
         user_choice = raw_input("\nWhat location will you pick for compressions? >>> ")
         #clean up code: converts user input to all lowercase and no spaces
-        user_choice = user_choice.lower().translate(None, whitespace)
+        user_choice = user_choice.lower().translate(None, string.whitespace)
 
         if user_choice.isalpha():
             if user_choice == "c" or user_choice == "lowerhalfofsternum":
@@ -342,12 +341,12 @@ def execute_guess_the_number_user_command():
         if attempts == 1:
             print 'You guessed it in', attempts, 'attempt\n'
             sleep(2)
-            print "\n--- You completed CPR Simulation Mini-Game #1 ---\n"
+            print "\n--- You completed CPR Simulation Mini-Game #2 ---\n"
             sleep(2)
         elif attempts > 1:
             print 'You guessed it in', attempts, 'attempts\n'
             sleep(2)
-            print "\n--- You completed CPR Simulation Mini-Game #1 ---\n"
+            print "\n--- You completed CPR Simulation Mini-Game #2 ---\n"
             sleep(2)
 
 
@@ -373,7 +372,7 @@ def initiate_breathing_simulation():
             'try_again': "A successful rescue breath actually involves the presence of chest recoil."}
         ]
 
-    #use list above to put into question format functio
+    #use list above to put into question format function
     ask_question_simulation(breathing_actions)
 
     print '\nYou successfully performed 2 rescue breathes.'
@@ -418,7 +417,7 @@ def execute_user_input_CPR_tutorial_menu():
         #transfers return input from get_main_menu function to use in loop
         choice = get_CPR_tutorial_main_menu()
         #clean up user input: lowercase and remove spaces
-        choice = choice.lower().translate(None, whitespace)
+        choice = choice.lower().translate(None, string.whitespace)
 
         #clean up user input: if all characters, continue. if number/symbol, print error
         if choice.isalpha():
@@ -429,9 +428,9 @@ def execute_user_input_CPR_tutorial_menu():
                     user_map[0] = 'True'
                     #updated map = [T, F, F]
                 elif user_map[0] == 'True' and user_map[1] == 'False':
-                    print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Airway review now!"
+                    print "1st lesson: the proper order of CPR is Compressions - Airway - Breathing! Let's do Airway review now!"
                 elif user_map[1] == 'True' and user_map[2] == 'False':
-                    print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Breathing review now!"
+                    print "1st lesson: the proper order of CPR is Compressions - Airway - Breathing! Let's do Breathing review now!"
 
             if choice == 'a' or choice == 'checkairway':
             #a. check airway
@@ -440,9 +439,9 @@ def execute_user_input_CPR_tutorial_menu():
                     user_map[1] = 'True'
                     #updated map = [T, T, F]
                 elif user_map[0] == 'False':
-                    print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Compressions review now!"
+                    print "1st lesson: the proper order of CPR is Compressions - Airway - Breathing! Let's do Compressions review now!"
                 elif user_map[1] == 'True' and user_map[2] == 'False':
-                    print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Breathing review now!"
+                    print "1st lesson: the proper order of CPR is Compressions - Airway - Breathing! Let's do Breathing review now!"
 
             if choice == 'b' or choice == 'initiatebreathing':
             #b. initiate breathing
@@ -451,9 +450,9 @@ def execute_user_input_CPR_tutorial_menu():
                     user_map[2] = 'True'
                     #updated map = [T, T, T]
                 elif user_map[0] == 'False':
-                    print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Compressions review now!"
+                    print "1st lesson: the proper order of CPR is Compressions - Airway - Breathing! Let's do Compressions review now!"
                 elif user_map[0] == 'True' and user_map[1] == 'False':
-                    print "The proper order of CPR is Compressions - Airway - Breathing. Let's do Airway review now!"
+                    print "1st lesson: the proper order of CPR is Compressions - Airway - Breathing! Let's do Airway review now!"
 
             if choice == 'd' or choice == 'backtomainmenu':
             #d. back to main menu
@@ -497,7 +496,7 @@ def ask_question_CPR_tutorial(questionlist):
 
             #prompts user input
             response = raw_input("\nWhat is your answer? >>> ")
-            response = response.lower().translate(None, whitespace)
+            response = response.lower().translate(None, string.whitespace)
 
             if response.isalpha() and len(response) == 1:
             #if correct input, outputs current score; if not, outputs try again
@@ -603,6 +602,7 @@ def display_revival_scenario():
     """Prints inevitable successful revival scenario of victim using time module of 2.5 sec delay"""
 
     conclusion = [
+        "\n-------------------------------------------------",
         "\nThe person suddenly gasps for air and is successfully revived.",
         "The ambulance arrives.",
         "The person gets transported to the hospital.",
@@ -624,7 +624,7 @@ def CPR_tutorial_tracking_score():
         print "\nOof. I'd recommend going through this tutorial again!"
     elif final_score > 2 and final_score <= 5:
         #3-5/8 correct
-        print "\nI sensed you struggled a bit. I recommend going through this tutorial one more time!"
+        print "\nI sense you struggled a bit. I recommend going through this tutorial one more time!"
     elif final_score > 6:
         #6-8/8 correct
         print "\nExcellent! Looks like you're ready!"
@@ -656,7 +656,7 @@ def execute_repl_main_menu():
         user_choice = get_main_menu()
 
         #clean up user input: lowercase and remove spaces
-        user_choice = user_choice.lower().translate(None, whitespace)
+        user_choice = user_choice.lower().translate(None, string.whitespace)
 
         #clean up user input: if all characters, continue. if number/symbol, print error
         if user_choice.isalpha():
